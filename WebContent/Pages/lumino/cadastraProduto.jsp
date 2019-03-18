@@ -245,9 +245,9 @@
 										<label>Categoria de ativação</label>
 										<select name="categoriaAtivacao" class="form-control">
 											<option></option>
-											<option value="1">Categoria 2</option>
-											<option value="2">Categoria 3</option>
-											<option value="3">Categoria 4</option>
+											<option value="1">Categoria 1</option>
+											<option value="2">Categoria 2</option>
+											<option value="3">Categoria 3</option>
 										</select>
 									</div>
 									<div class="form-group">
