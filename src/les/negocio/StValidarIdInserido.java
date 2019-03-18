@@ -13,7 +13,7 @@ public class StValidarIdInserido implements IStrategy {
 		Livro livro = (Livro) entidade;
 		
 		if(livro.getId().equals(BigInteger.ZERO)) {
-			mensagem = "Insira o código para consulta";			
+			mensagem = "Insira o código para consulta\n";			
 		}
 		
 		return mensagem;

@@ -153,7 +153,7 @@
 								
 								<div class="form-group">
 									<label>Código:</label>
-									<input name="codigo" class="form-control" >									
+									<input name="codigo" class="form-control" maxLength="4">									
 								</div>
 								<div class="form-group">
 									<button type="reset" class="btn btn-default">Cancelar</button>

@@ -13,6 +13,7 @@ import les.negocio.StComplementarGeneroLiterario;
 import les.negocio.StValidarDadosObrigatorios;
 import les.negocio.StValidarExistencia;
 import les.negocio.StValidarIdInserido;
+import les.negocio.StValidarLivroExclusaoEAlteracao;
 import les.negocio.StValidarMotivoAtivacao;
 import util.Resultado;
 
@@ -39,11 +40,14 @@ public class Fachada implements IFachada  {
 		listStrategySalvar.add(new StComplementarGeneroLiterario());
 		listStrategySalvar.add(new StValidarExistencia());
 		
-		listStrategyConsultar.add(new StValidarMotivoAtivacao());
+		listStrategyConsultar.add(new StValidarIdInserido());
+		listStrategyConsultar.add(new StValidarLivroExclusaoEAlteracao());
 		
 		listStrategyExcluir.add(new StValidarIdInserido());
+		listStrategyExcluir.add(new StValidarLivroExclusaoEAlteracao());
 		
 		listStrategyAlterar.add(new StValidarIdInserido());
+		listStrategyAlterar.add(new StValidarLivroExclusaoEAlteracao());
 
 		mapStrategy.put("SALVAR", listStrategySalvar);
 		mapStrategy.put("CONSULTAR", listStrategyConsultar);

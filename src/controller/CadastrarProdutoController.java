@@ -52,7 +52,7 @@ public class CadastrarProdutoController extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		String operacao = request.getParameter("operacao");
 		String vh = request.getRequestURI();
 		IViewHelper viewHelper = mapViewHelper.get(vh);
