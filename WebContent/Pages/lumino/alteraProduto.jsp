@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Excluir Livro</title>
-	<link href="./Pages/lumino/css/bootstrap.min.css" rel="stylesheet">
-	<link href="./Pages/lumino/css/font-awesome.min.css" rel="stylesheet">
-	<link href="./Pages/lumino/css/datepicker3.css" rel="stylesheet">
-	<link href="./Pages/lumino/css/styles.css" rel="stylesheet">
+	<title>Cadastrar Livro</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/datepicker3.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
 	
 	<!--Custom Font-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -142,32 +141,27 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Exclusão produto</h1>
+				<h1 class="page-header">Consultar</h1>
 			</div>
 		</div><!--/.row-->
 				
 				<div class="panel panel-default">
 					<div class="panel-heading">Livros</div>
-						<div class="panel-body">
-							<div class="col-md-6">
-							
-							<form role="form" action="/livraria/CadastrarProduto" method="POST">							
+					<div class="panel-body">
+						<div class="col-md-6">
+							<form role="form" action="/livraria/AlteraProduto" method="POST">
 								
 								<div class="form-group">
-							
-							<c:forEach var="mensagem" items="${requestScope.sucesso}">
-								<div class="alert alert-success" role="alert">
-									${mensagem}
-								</div>											
-							</c:forEach>
-								</div>			
-							<c:forEach var="mensagem" items="${requestScope.erro}">
-								<div class="alert alert-danger" role="alert">
-									${mensagem}
-								</div>											
-							</c:forEach>
-								</div>															
-							</div>
+									<label>Código:</label>
+									<input name="codigo" class="form-control" >									
+								</div>
+								<div class="form-group">
+									<button type="reset" class="btn btn-default">Cancelar</button>
+									<button name="operacao" value="ALTERAR" type="submit" class="btn btn-primary">Consultar</button>																
+								</div>						
+									
+								</div>
+							</form>
 						</div>
 					</div>
 				</div><!-- /.panel-->

@@ -11,7 +11,7 @@ import les.dao.IDAO;
 import les.negocio.IStrategy;
 import les.negocio.StComplementarGeneroLiterario;
 import les.negocio.StValidarDadosObrigatorios;
-import les.negocio.StValidarIdExclusao;
+import les.negocio.StValidarIdInserido;
 import les.negocio.StValidarMotivoAtivacao;
 import util.Resultado;
 
@@ -22,6 +22,7 @@ public class Fachada implements IFachada  {
 	private List<IStrategy> listStrategySalvar;
 	private List<IStrategy> listStrategyConsultar;
 	private List<IStrategy> listStrategyExcluir;
+	private List<IStrategy> listStrategyAlterar;
 	
 	public Fachada() {
 		mapStrategy = new HashMap<String, List<IStrategy>>();
@@ -30,6 +31,7 @@ public class Fachada implements IFachada  {
 		listStrategySalvar = new ArrayList<IStrategy>();
 		listStrategyConsultar = new ArrayList<IStrategy>();
 		listStrategyExcluir = new ArrayList<IStrategy>();
+		listStrategyAlterar = new ArrayList<IStrategy>();
 
 		listStrategySalvar.add(new StValidarDadosObrigatorios());
 		listStrategySalvar.add(new StValidarMotivoAtivacao());
@@ -37,11 +39,14 @@ public class Fachada implements IFachada  {
 		
 		listStrategyConsultar.add(new StValidarMotivoAtivacao());
 		
-		listStrategyExcluir.add(new StValidarIdExclusao());
+		listStrategyExcluir.add(new StValidarIdInserido());
+		
+		listStrategyAlterar.add(new StValidarIdInserido());
 
 		mapStrategy.put("SALVAR", listStrategySalvar);
 		mapStrategy.put("CONSULTAR", listStrategyConsultar);
 		mapStrategy.put("EXCLUIR", listStrategyExcluir);
+		mapStrategy.put("ALTERAR", listStrategyAlterar);
 		
 		mapDAO.put("LIVRO", new DAOLivro());
 	}
@@ -120,7 +125,14 @@ public class Fachada implements IFachada  {
 	public Resultado alterar(EntidadeDominio entidade) {
 		Resultado resultado = new Resultado();
 		
-		return resultado;
+		resultado = validarStrategys(entidade, "ALTERAR");
+
+		if (!resultado.getErro()) {
+			IDAO dao = mapDAO.get(entidade.getClass().getSimpleName().toUpperCase());
+			resultado = dao.alterar(entidade);
+		}
+		
+		return resultado;	
 		
 	}
 

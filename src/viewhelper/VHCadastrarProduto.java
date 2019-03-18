@@ -193,6 +193,10 @@ public class VHCadastrarProduto implements IViewHelper {
 				request.setAttribute("livro", (Livro) resultado.getResultado());
 				RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/produtoExcluido.jsp");
 				rd.forward(request, response);
+			} else if(operacao.equals("ALTERAR")){
+				request.setAttribute("livro", (Livro) resultado.getResultado());
+				RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/produtoAlterado.jsp");
+				rd.forward(request, response);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

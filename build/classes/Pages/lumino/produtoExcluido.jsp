@@ -8,7 +8,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cadastrar Livro</title>
+	<title>Excluir Livro</title>
 	<link href="./Pages/lumino/css/bootstrap.min.css" rel="stylesheet">
 	<link href="./Pages/lumino/css/font-awesome.min.css" rel="stylesheet">
 	<link href="./Pages/lumino/css/datepicker3.css" rel="stylesheet">

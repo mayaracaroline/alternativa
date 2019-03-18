@@ -151,102 +151,49 @@
 						<div class="panel-body">
 							<div class="col-md-6">
 							
-							<form role="form" action="/livraria/AlterarProduto" method="POST">
+							<form role="form" action="/livraria/CadastrarProduto" method="POST">
+								<input type="hidden" id="FormName" name="FormName" value="CADASTRAR_PRODUTO" />
 								
 								<div class="form-group">
 								
 								<c:forEach var="item" items="${resultado}">
-									
-									<input type="hidden" name="codigo" value="${item.id}" class="form-control" maxLength="5" >									
+									<label>Código:</label>
+									<input name="codigo" value="${item.id}" class="form-control" maxLength="">									
 									<label>Título</label>
-									<input name="titulo"  value="${item.titulo}" class="form-control" >
+									<input name="titulo"  value="${item.titulo}" class="form-control" disabled>
 									<label>Autor:</label>
-									<input name="autor" value="${item.autor}" class="form-control" >
+									<input name="autor" value="${item.autor}" class="form-control" disabled>
 									<label>Ano publicação:</label>
-									<input name="ano" value="${item.ano}" class="form-control" >
+									<input name="ano" value="${item.ano}" class="form-control" disabled>
 									<label id="genero">Genero:</label>
 									<c:forEach var="categoria" items="${item.categorias}">	
-										<li> Genero: ${categoria.id} - ${categoria.descricao} </li><br>
+										<li> Genero: ${categoria.id} - ${categoria.descricao} </li>
 									</c:forEach>
-									
-									<label id="genero">Alterar Genero:</label>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="1"> Administração
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="2"> Artes e fotografia
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="3">Autoajuda
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="4">Biografia
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="5">Contos e crônicas
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="6">Didáticos
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="7">Direito
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="8">Ficção fantasiosa
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="9">HQs
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="10">Poesia
-										</label>
-									</div>
-									<div class="checkbox">
-									
 																	
 									<label>Editora:</label>
-									<input name="editora" value="${item.editora}" class="form-control" >
+									<input name="editora" value="${item.editora}" class="form-control" disabled>
 									<label>Edição:</label>
-									<input name="edicao" value="${item.edicao}" class="form-control" >
+									<input name="edicao" value="${item.edicao}" class="form-control" disabled>
 									<label>ISBN:</label>
-									<input name="isbn" value="${item.isbn}" class="form-control" maxlength="13" >
+									<input name="isbn" value="${item.isbn}" class="form-control" maxlength="13" disabled>
 									<label>Sinopse:</label>
-									<textarea name="sinopse" value="" class="form-control" rows="3" >
+									<textarea name="sinopse" value="" class="form-control" rows="3" disabled>
 										${item.sinopse}
 									</textarea>
 									<label>Altura:</label>
-									<input name="altura" value="${item.altura}" class="form-control" >
+									<input name="altura" value="${item.altura}" class="form-control" disabled>
 									<label>Largura:</label>
-									<input name="largura" value="${item.largura}" class="form-control" >
+									<input name="largura" value="${item.largura}" class="form-control" disabled>
 									<label>Peso:</label>
-									<input name="peso" value="${item.largura}" class="form-control" >
+									<input name="peso" value="${item.largura}" class="form-control" disabled>
 									<label>Profundidade:</label>
-									<input name="profundidade" value="${item.profundidade}" class="form-control" >
+									<input name="profundidade" value="${item.profundidade}" class="form-control" disabled>
 									<label>Quantidade de páginas:</label>
-									<input name="quantidadePaginas" value="${item.quantidadePaginas}" class="form-control" >
+									<input name="quantidadePaginas" value="${item.quantidadePaginas}" class="form-control" disabled>
 									<label>Código de barras:</label>
-									<input name="codBarras" value="${item.codigoBarras}" class="form-control" >
+									<input name="codBarras" value="${item.codigoBarras}" class="form-control" disabled>
 									<div class="form-group checkbox">
-										<label id="statusLivro" >
+										<label id="statusLivro" disabled>
 											<input id="status" name="ativo" type="checkbox">
 											<script>
 												const labelStatus = document.getElementById("statusLivro");
@@ -258,29 +205,25 @@
 													labelStatus.innerHTML = "Inativo";
 													inputStatus.checked = false;
 												}
-												inputStatus.setAttribute("","")
+												inputStatus.setAttribute("disabled","disabled")
 												labelStatus.insertAdjacentElement("beforebegin",inputStatus);
 											</script>										
 										</label>
 									</div>
 									<div class="form-group">
 										<label>Categoria de ativação</label>
-										<li>Categoria ${item.categoriaAtivacao}</li>
-										<select name="categoriaAtivacao" class="form-control" >
-											<option value="1">Categoria 1</option>
-											<option value="2">Categoria 2</option>
-											<option value="3">Categoria 3</option>
-											<option value="4">Categoria 4</option>
+										<select name="categoriaAtivacao" class="form-control" disabled>
+											<option value="1">Categoria ${item.categoriaAtivacao}</option>
 										</select>
 									</div>
 									<div class="form-group">
 										<label>Justificativa ativação:</label>
-										<input name="motivoAtivacao" value="${item.justificativaAtivacao}" class="form-control" >									
+										<input name="motivoAtivacao" value="${item.justificativaAtivacao}" class="form-control" disabled>									
 									</div>
 
 									<div class="form-group">
 										<button type="reset" class="btn btn-default">Cancelar</button>
-										<button name="operacao" value="ALTERAR" type="submit" class="btn btn-primary">Alterar</button>
+										<button name="operacao" value="CONSULTAR" type="submit" class="btn btn-primary">CONSULTAR</button>
 									</div>																
 								</div>						
 								</form>	
@@ -295,11 +238,11 @@
 								</div>																
 							</c:if>
 							
-							<!--<c:forEach var="mensagem" items="${requestScope.sucesso}">
+							<c:forEach var="mensagem" items="${requestScope.sucesso}">
 								<div class="alert alert-success" role="alert">
 									${mensagem}
 								</div>											
-							</c:forEach> -->
+							</c:forEach>
 								</div>			
 							<c:forEach var="mensagem" items="${requestScope.erro}">
 								<div class="alert alert-danger" role="alert">

@@ -141,8 +141,60 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		Livro livro = (Livro) entidade;
+		Resultado resultado = new Resultado();
+		
+		String sql = "UPDATE livros SET liv_cod_barras = ?, "
+				+ "liv_ativo = ?,  "
+				+ "liv_categoria_ativacao_id = ?,  "
+				+ "liv_justificativa_ativacao = ?,  "
+				+ "liv_autor = ?,  "
+				+ "liv_titulo = ?,  "
+				+ "liv_ano_publicacao = ?,  "
+				+ "liv_edicao = ?,  "
+				+ "liv_isbn = ?,  "
+				+ "liv_sinopse = ?,  "
+				+ "liv_editora = ?,  "
+				+ "liv_quantidade_paginas = ?,  "
+				+ "liv_altura = ?,  "
+				+ "liv_largura = ?,  "
+				+ "liv_peso = ?,  "
+				+ "liv_profundidade = ?  "
+				+ "WHERE liv_id = ?";
+		
+		try {
+			
+			PreparedStatement statement = conexao.prepareStatement(sql);
+			statement.setString(1, livro.getCodigoBarras());
+			statement.setBoolean(2, livro.isAtivo());
+			statement.setInt(3, livro.getCategoriaAtivacao());
+			statement.setString(4, livro.getJustificativaAtivacao());
+			statement.setString(5, livro.getAutor());
+			statement.setString(6, livro.getTitulo() );
+			statement.setInt(7, livro.getAno());
+			statement.setString(8, livro.getEdicao());
+			statement.setString(9, livro.getIsbn());
+			statement.setString(10, livro.getSinopse());
+			statement.setString(11, livro.getEditora());
+			statement.setInt(12, livro.getQuantidadePaginas());
+			statement.setDouble(13, livro.getAltura());			
+			statement.setDouble(14, livro.getLargura());
+			statement.setDouble(15, livro.getPeso());
+			statement.setDouble(16, livro.getProfundidade());
+			statement.setInt(17, livro.getId().intValue());
+			
+			statement.executeUpdate();
+			statement.close();
+			
+			resultado.sucesso("Registro atualizado com sucesso!");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultado.erro("Erro ao alterar registro");
+		}
+		
+		
+		return resultado;
 	}
 
 	@Override

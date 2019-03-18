@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dominio.EntidadeDominio;
+import les.command.CommandAlterar;
 import les.command.CommandConsultar;
 import les.command.CommandExcluir;
 import les.command.CommandSalvar;
@@ -22,7 +23,7 @@ import viewhelper.VHCadastrarProduto;
 /**
  * Servlet implementation class CadastrarProdutoController
  */
-@WebServlet({ "/CadastrarProduto", "/cadastro", "/ConsultaProduto", "/ExcluiProduto"})
+@WebServlet({ "/CadastrarProduto", "/cadastro", "/ConsultaProduto", "/ExcluiProduto", "/AlterarProduto"})
 public class CadastrarProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, IViewHelper> mapViewHelper;
@@ -38,10 +39,12 @@ public class CadastrarProdutoController extends HttpServlet {
     	mapViewHelper.put("/livraria/CadastrarProduto", new VHCadastrarProduto());
     	mapViewHelper.put("/livraria/ConsultaProduto", new VHCadastrarProduto());
     	mapViewHelper.put("/livraria/ExcluiProduto", new VHCadastrarProduto());
+    	mapViewHelper.put("/livraria/AlterarProduto", new VHCadastrarProduto());
     	mapCommand = new HashMap<String, ICommand>();
     	mapCommand.put("SALVAR", new CommandSalvar());
     	mapCommand.put("CONSULTAR", new CommandConsultar());
     	mapCommand.put("EXCLUIR", new CommandExcluir());
+    	mapCommand.put("ALTERAR", new CommandAlterar());
     	
     }
 
