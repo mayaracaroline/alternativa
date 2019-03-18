@@ -184,6 +184,14 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 			statement.setInt(17, livro.getId().intValue());
 			
 			statement.executeUpdate();
+			
+			DAOGenerosLivro daoGenero = new DAOGenerosLivro();
+			daoGenero.excluir(livro);			
+			resultado = daoGenero.salvar(livro);			
+			
+			livro = (Livro) resultado.getResultado();
+			livro.setCategorias((ArrayList<GeneroLiterario>) livro.getCategorias());
+			
 			statement.close();
 			
 			resultado.sucesso("Registro atualizado com sucesso!");

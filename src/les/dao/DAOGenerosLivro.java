@@ -14,8 +14,33 @@ public class DAOGenerosLivro extends AbstractDAO implements IDAO{
 
 	@Override
 	public Resultado salvar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "INSERT into GENEROS_LIVRO (glv_livro_id, glv_genero_id, glv_genero_descricao) values (? , ?, (SELECT gen_descricao FROM generos WHERE gen_id = ? ))";
+		Livro livro = (Livro) entidade;
+		Resultado resultado = new Resultado();
+		
+		try {
+			PreparedStatement statement = conexao.prepareStatement(sql);
+
+			for (int i = 0; i < livro.getCategorias().size(); i++) {
+								
+
+				statement.setInt(1, livro.getId().intValue());
+				statement.setInt(2, livro.getCategorias().get(i).getId().intValue());
+				statement.setInt(3, livro.getCategorias().get(i).getId().intValue());
+				statement.execute();
+			}
+			
+			statement.close();
+			
+			resultado.setResultado(livro);
+			resultado.sucesso("Sucesso!");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultado.erro("Erro ao salvar na tabela generos_livro");
+		}
+		
+		return resultado;
 	}
 
 	@Override
@@ -70,8 +95,25 @@ public class DAOGenerosLivro extends AbstractDAO implements IDAO{
 
 	@Override
 	public Resultado excluir(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "DELETE FROM generos_livro WHERE glv_livro_id = ?";
+		Livro livro = (Livro) entidade;
+		Resultado resultado = new Resultado();
+		
+		try {
+			
+			PreparedStatement statement = conexao.prepareStatement(sql);
+			statement.setInt(1, livro.getId().intValue());
+			statement.execute();
+			statement.close();
+			
+			resultado.setResultado(livro);
+			resultado.sucesso("Registro excluido com sucesso!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultado.erro("Erro ao excluir registro na tabela generos_livro");
+		}
+		
+		return resultado;
 	}
 
 }

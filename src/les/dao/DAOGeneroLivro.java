@@ -61,21 +61,29 @@ public class DAOGeneroLivro extends AbstractDAO implements IDAO {
 	}
 
 	public Resultado salvar(EntidadeDominio entidade) {
-		String sql = "INSERT into GENEROS_LIVRO (glv_livro_id, glv_genero_id, glv_genero_descricao) values (? , ?, ?)";
+		String sql = "INSERT into GENEROS_LIVRO (glv_livro_id, glv_genero_id, glv_genero_descricao) values (? , ?, (SELECT gen_descricao FROM generos WHERE gen_id = ? ))";
 		Livro livro = (Livro) entidade;
 		Resultado resultado = new Resultado();
 		
 		try {
 			PreparedStatement statement = conexao.prepareStatement(sql);
 
+//			for (int i = 0; i < livro.getCategorias().size(); i++) {
+//				
+//				Resultado result = this.consultar(livro);
+//				
+//				livro = (Livro) result.getResultado();
+//				statement.setInt(1, livro.getId().intValue());
+//				statement.setInt(2, livro.getCategorias().get(i).getId().intValue());
+//				statement.setString(3, livro.getCategorias().get(i).getDescricao());
+//				statement.execute();
+//			}
+			
 			for (int i = 0; i < livro.getCategorias().size(); i++) {
 								
-				Resultado result = this.consultar(livro);
-				
-				livro = (Livro) result.getResultado();
 				statement.setInt(1, livro.getId().intValue());
 				statement.setInt(2, livro.getCategorias().get(i).getId().intValue());
-				statement.setString(3, livro.getCategorias().get(i).getDescricao());
+				statement.setInt(3, livro.getCategorias().get(i).getId().intValue());
 				statement.execute();
 			}
 			
