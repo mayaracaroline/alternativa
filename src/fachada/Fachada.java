@@ -11,6 +11,7 @@ import les.dao.IDAO;
 import les.negocio.IStrategy;
 import les.negocio.StComplementarGeneroLiterario;
 import les.negocio.StValidarDadosObrigatorios;
+import les.negocio.StValidarExistencia;
 import les.negocio.StValidarIdInserido;
 import les.negocio.StValidarMotivoAtivacao;
 import util.Resultado;
@@ -36,6 +37,7 @@ public class Fachada implements IFachada  {
 		listStrategySalvar.add(new StValidarDadosObrigatorios());
 		listStrategySalvar.add(new StValidarMotivoAtivacao());
 		listStrategySalvar.add(new StComplementarGeneroLiterario());
+		listStrategySalvar.add(new StValidarExistencia());
 		
 		listStrategyConsultar.add(new StValidarMotivoAtivacao());
 		
@@ -69,7 +71,7 @@ public class Fachada implements IFachada  {
 			}
 		}
 		
-		if( "".equals(mensagens)){
+		if("".equals(mensagens)){
 			resultado.sucesso("SUCESSO");
 		}else{
 			List<EntidadeDominio> l = new ArrayList<>();

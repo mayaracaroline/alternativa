@@ -90,7 +90,7 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 			PreparedStatement statement = conexao.prepareStatement(sql);
 			statement.setInt(1, livro.getId().intValue());
 			ResultSet resultadoConsulta = statement.executeQuery();
-			
+			int contagem = 0;
 			
 			while(resultadoConsulta.next()) {
 				
@@ -123,11 +123,13 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 				livroEncontrado.setPeso(resultadoConsulta.getDouble("liv_peso"));
 				livroEncontrado.setProfundidade(resultadoConsulta.getDouble("liv_profundidade"));
 				
+				contagem++;
 				listLivro.add(livroEncontrado);
 								
 			}
 								
 			statement.close();
+			resultado.setContagem(contagem);
 			resultado.setListaResultado(listLivro);
 			resultado.sucesso("Sucesso");
 			return resultado;

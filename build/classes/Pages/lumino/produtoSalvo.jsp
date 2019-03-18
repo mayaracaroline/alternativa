@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -159,12 +159,25 @@
 								<div class="alert alert-danger" role="alert">
 											${mensagem}
 								</div>											
-							</c:forEach>
-							
-							<div class="alert alert-info" role="alert">
+							</c:forEach>					
+														
+							<div id="sucesso" class="alert alert-info" role="alert">
 								Código: ${livro.id} <br>
 								Título: ${livro.titulo} 
-							</div>											
+							</div>
+							
+							<c:choose>
+								<c:when test="${fn:length(requestScope.erro) > 0}"> 
+									<script>
+										document.getElementById('sucesso').style.display="none";
+									</script>
+								</c:when>
+								<c:when test="${fn:length(requestScope.sucesso) > 0}">
+									<script>
+										document.getElementById('sucesso').style.display="none";
+									</script>
+								</c:when>
+							</c:choose>										
 							
 													
 						</div>
