@@ -30,12 +30,13 @@ public class VHCadastrarProduto implements IViewHelper {
 		String sinopse = request.getParameter("sinopse");
 		String codigoBarras = request.getParameter("codBarras");
 		String ativoStr =  request.getParameter("ativo");
-		String motivoInativacao = request.getParameter("motivoInativacao");		
+		String motivoInativacao = request.getParameter("motivoInativacao");	
 		String motivoAtivacao = request.getParameter("motivoAtivacao");
 		
 		// Tratamento de números e bool
 		int codigo;
 		int categoriaAtivacao;
+		int categoriaInativacao;
 		int ano;
 		int quantidadePaginas;
 		double altura;
@@ -48,6 +49,11 @@ public class VHCadastrarProduto implements IViewHelper {
 				!"".equals(request.getParameter("categoriaAtivacao")) &&
 				Numero.isNumeric(request.getParameter("categoriaAtivacao")) ? 
 				Integer.parseInt(request.getParameter("categoriaAtivacao")) : 0;
+				
+		categoriaInativacao = null != request.getParameter("categoriaInativacao") && 
+				!"".equals(request.getParameter("categoriaInativacao")) &&
+				Numero.isNumeric(request.getParameter("categoriaInativacao")) ? 
+				Integer.parseInt(request.getParameter("categoriaInativacao")) : 0;
 					
 		ano = null != request.getParameter("ano") && 
 				!"".equals(request.getParameter("ano")) &&
@@ -82,8 +88,7 @@ public class VHCadastrarProduto implements IViewHelper {
 	    profundidade = null != request.getParameter("profundidade") && 
 	    		!"".equals(request.getParameter("profundidade")) &&
 	    		Numero.isNumeric(request.getParameter("profundidade")) ?	
-				Double.parseDouble(request.getParameter("profundidade").replace(",",".")) : 0;				
-						
+				Double.parseDouble(request.getParameter("profundidade").replace(",",".")) : 0;							
 		
 		// Tratamento de String
 		
@@ -137,6 +142,7 @@ public class VHCadastrarProduto implements IViewHelper {
 		livro.setCodigoBarras(codigoBarras);
 		livro.setAtivo(ativo);
 		livro.setCategoriaAtivacao(categoriaAtivacao);
+		livro.setCategoriaInativacao(categoriaInativacao);
 		livro.setJustificativaInativacao(motivoInativacao);
 		livro.setJustificativaAtivacao(motivoAtivacao);
 		livro.setCategorias(generosLiterarios);
@@ -169,7 +175,11 @@ public class VHCadastrarProduto implements IViewHelper {
 			} else if(operacao.equals("EXCLUIR")){
 				if(resultado.getErro()){
 					request.setAttribute("resultado", (Livro) resultado.getResultado());
-				}
+				} 
+			} else if(operacao.equals("INATIVAR")){
+				if(resultado.getErro()){
+					request.setAttribute("resultado", (Livro) resultado.getResultado());
+				} 
 			}
 		}
 		try {
@@ -194,6 +204,10 @@ public class VHCadastrarProduto implements IViewHelper {
 				RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/produtoExcluido.jsp");
 				rd.forward(request, response);
 			} else if(operacao.equals("ALTERAR")){
+				request.setAttribute("livro", (Livro) resultado.getResultado());
+				RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/produtoAlterado.jsp");
+				rd.forward(request, response);
+			} else if(operacao.equals("INATIVAR")){
 				request.setAttribute("livro", (Livro) resultado.getResultado());
 				RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/produtoAlterado.jsp");
 				rd.forward(request, response);

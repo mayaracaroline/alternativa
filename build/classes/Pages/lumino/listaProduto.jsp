@@ -248,20 +248,16 @@
 									<div class="form-group checkbox">
 										<label id="statusLivro" >
 											<input id="status" name="ativo" type="checkbox">
-											<script>
-												const labelStatus = document.getElementById("statusLivro");
-												const inputStatus = document.getElementById("status");
-												if ('${item.ativo}') {
-													labelStatus.innerHTML = "Ativo";
-													inputStatus.checked = true;
-												} else {								
-													labelStatus.innerHTML = "Inativo";
-													inputStatus.checked = false;
-												}
-												inputStatus.setAttribute("","")
-												labelStatus.insertAdjacentElement("beforebegin",inputStatus);
-											</script>										
-										</label>
+											<c:choose>
+												<c:when test="${not item.ativo}">
+													
+													<li><b>Status:</b> Inativo</li>
+																										
+												</c:when>
+												<c:when test="${item.ativo}">
+													<li><b>Status:</b> Ativo</li>
+												</c:when>
+											</c:choose>
 									</div>
 									<div class="form-group">
 										<label>Categoria de ativação</label>

@@ -141,7 +141,7 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Consultar</h1>
+				<h1 class="page-header">Inativar produto</h1>
 			</div>
 		</div><!--/.row-->
 				
@@ -149,124 +149,28 @@
 					<div class="panel-heading">Livros</div>
 					<div class="panel-body">
 						<div class="col-md-6">
-							<form role="form" action="/livraria/ConsultaProduto" method="POST">
-								<input type="hidden" id="FormName" name="FormName" value="CONSULTAR_PRODUTO" />
+							<form role="form" action="/livraria/InativaProduto" method="POST">
+
 								<div class="form-group">
 									<label>Código:</label>
 									<input name="codigo" class="form-control" >									
-									<label>Título</label>
-									<input name="titulo" class="form-control" >
-									<label>Autor:</label>
-									<input name="autor" class="form-control" >
-									<label>Ano publicação:</label>
-									<input name="ano" class="form-control" >
-									<label>Categoria:</label>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Administração"> Administração
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Artes e fotografia"> Artes e fotografia
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Autoajuda">Autoajuda
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Biografia">Biografia
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Contos e crônicas">Contos e crônicas
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Didáticos">Didáticos
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Direito">Direito
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Ficção fantasiosa">Ficção fantasiosa
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="HQs">HQs
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Poesia">Poesia
-										</label>
-									</div>
-									<div class="checkbox">
-										<label>
-											<input  name="genero" type="checkbox" value="Romance">Romance
-										</label>
-									</div>
-									<label>Editora:</label>
-									<input name="editora" class="form-control" >
-									<label>Edição:</label>
-									<input name="edicao" class="form-control" >
-									<label>ISBN:</label>
-									<input name="isbn" class="form-control" maxlength="13" >
-									<label>Sinopse:</label>
-									<textarea name="sinopse" value="" class="form-control" rows="3"></textarea>
-									<label>Altura:</label>
-									<input name="altura" class="form-control" >
-									<label>Largura:</label>
-									<input name="largura" class="form-control" >
-									<label>Peso:</label>
-									<input name="peso" class="form-control" >
-									<label>Profundidade:</label>
-									<input name="profundidade" class="form-control" >
-									<label>Quantidade de páginas:</label>
-									<input name="quantidadePaginas" class="form-control" >
-									<label>Código de barras:</label>
-									<input name="codBarras" class="form-control" >
-									<div class="form-group checkbox">
-										<label>
-											<input name="ativo" type="checkbox">Ativo
-										</label>
-									</div>
-									<div class="form-group">
-										<label>Categoria de ativação</label>
-										<select name="categoriaAtivacao" class="form-control">
-											<option></option>
-											<option>Categoria 2</option>
-											<option>Categoria 3</option>
-											<option>Categoria 4</option>
-										</select>
-									</div>
-									<label>Justificativa ativação:</label>
-									<input name="motivoAtivacao" class="form-control" >									
-									<div class="form-group">
+									
 										<label>Categoria de inativação</label>
 										<select name="categoriaInativacao" class="form-control">
 											<option></option>
-											<option>Categoria 2</option>
-											<option>Categoria 3</option>
-											<option>Categoria 4</option>
+											<option value="1">Categoria 1</option>
+											<option value="2">Categoria 2</option>
+											<option value="3">Categoria 3</option>
 										</select>
 									</div>
-									<label>Justificativa inativação:</label>
-									<input name="motivoInativacao" class="form-control" >
-
-
-									<button type="reset" class="btn btn-default">Cancelar</button>
-									<button name="operacao" value="CONSULTAR" type="submit" class="btn btn-primary">Consultar</button>																
+									<div class="form-group">
+										<label>Justificativa inativação:</label>
+										<input name="motivoInativacao" class="form-control" >
+									</div>
+									<div class="form-group">
+										<button type="reset" class="btn btn-default">Cancelar</button>
+										<button name="operacao" value="INATIVAR" type="submit" class="btn btn-primary">Inativar</button>																
+									</div>
 								</div>						
 									
 								</div>

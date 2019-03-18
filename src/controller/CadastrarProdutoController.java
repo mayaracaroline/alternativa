@@ -14,6 +14,7 @@ import dominio.EntidadeDominio;
 import les.command.CommandAlterar;
 import les.command.CommandConsultar;
 import les.command.CommandExcluir;
+import les.command.CommandInativar;
 import les.command.CommandSalvar;
 import les.command.ICommand;
 import util.Resultado;
@@ -23,7 +24,7 @@ import viewhelper.VHCadastrarProduto;
 /**
  * Servlet implementation class CadastrarProdutoController
  */
-@WebServlet({ "/CadastrarProduto", "/cadastro", "/ConsultaProduto", "/ExcluiProduto", "/AlterarProduto"})
+@WebServlet({ "/CadastrarProduto", "/cadastro", "/ConsultaProduto", "/ExcluiProduto", "/AlterarProduto", "/InativaProduto"})
 public class CadastrarProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, IViewHelper> mapViewHelper;
@@ -40,12 +41,14 @@ public class CadastrarProdutoController extends HttpServlet {
     	mapViewHelper.put("/livraria/ConsultaProduto", new VHCadastrarProduto());
     	mapViewHelper.put("/livraria/ExcluiProduto", new VHCadastrarProduto());
     	mapViewHelper.put("/livraria/AlterarProduto", new VHCadastrarProduto());
+    	mapViewHelper.put("/livraria/InativaProduto", new VHCadastrarProduto());
+    	
     	mapCommand = new HashMap<String, ICommand>();
     	mapCommand.put("SALVAR", new CommandSalvar());
     	mapCommand.put("CONSULTAR", new CommandConsultar());
     	mapCommand.put("EXCLUIR", new CommandExcluir());
     	mapCommand.put("ALTERAR", new CommandAlterar());
-    	
+    	mapCommand.put("INATIVAR", new CommandInativar());
     }
 
 	/**

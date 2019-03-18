@@ -15,6 +15,7 @@ import les.negocio.StValidarExistencia;
 import les.negocio.StValidarIdInserido;
 import les.negocio.StValidarLivroExclusaoEAlteracao;
 import les.negocio.StValidarMotivoAtivacao;
+import les.negocio.StValidarMotivoCategoriaInativacao;
 import util.Resultado;
 
 public class Fachada implements IFachada  {
@@ -25,6 +26,7 @@ public class Fachada implements IFachada  {
 	private List<IStrategy> listStrategyConsultar;
 	private List<IStrategy> listStrategyExcluir;
 	private List<IStrategy> listStrategyAlterar;
+	private List<IStrategy> listStrategyInativar;
 	
 	public Fachada() {
 		mapStrategy = new HashMap<String, List<IStrategy>>();
@@ -34,7 +36,8 @@ public class Fachada implements IFachada  {
 		listStrategyConsultar = new ArrayList<IStrategy>();
 		listStrategyExcluir = new ArrayList<IStrategy>();
 		listStrategyAlterar = new ArrayList<IStrategy>();
-
+		listStrategyInativar = new ArrayList<IStrategy>(); 
+		
 		listStrategySalvar.add(new StValidarDadosObrigatorios());
 		listStrategySalvar.add(new StValidarMotivoAtivacao());
 		listStrategySalvar.add(new StComplementarGeneroLiterario());
@@ -48,11 +51,16 @@ public class Fachada implements IFachada  {
 		
 		listStrategyAlterar.add(new StValidarIdInserido());
 		listStrategyAlterar.add(new StValidarLivroExclusaoEAlteracao());
-
+		
+		listStrategyInativar.add(new StValidarIdInserido());
+		listStrategyInativar.add(new StValidarLivroExclusaoEAlteracao());
+		listStrategyInativar.add(new StValidarMotivoCategoriaInativacao());
+		
 		mapStrategy.put("SALVAR", listStrategySalvar);
 		mapStrategy.put("CONSULTAR", listStrategyConsultar);
 		mapStrategy.put("EXCLUIR", listStrategyExcluir);
 		mapStrategy.put("ALTERAR", listStrategyAlterar);
+		mapStrategy.put("INATIVAR", listStrategyInativar);
 		
 		mapDAO.put("LIVRO", new DAOLivro());
 	}
@@ -141,5 +149,17 @@ public class Fachada implements IFachada  {
 		return resultado;	
 		
 	}
+	
+	public Resultado inativar(EntidadeDominio entidade) {
+	
+		Resultado resultado = new Resultado();
+		resultado = validarStrategys(entidade, "INATIVAR");
 
+		if (!resultado.getErro()) {
+			IDAO dao = mapDAO.get(entidade.getClass().getSimpleName().toUpperCase());
+			resultado = dao.inativar(entidade);
+		}
+		
+		return resultado;
+	}
 }

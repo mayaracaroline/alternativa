@@ -195,19 +195,17 @@
 									<div class="form-group checkbox">
 										<label id="statusLivro" disabled>
 											<input id="status" name="ativo" type="checkbox">
-											<script>
-												const labelStatus = document.getElementById("statusLivro");
-												const inputStatus = document.getElementById("status");
-												if ('${item.ativo}') {
-													labelStatus.innerHTML = "Ativo";
-													inputStatus.checked = true;
-												} else {								
-													labelStatus.innerHTML = "Inativo";
-													inputStatus.checked = false;
-												}
-												inputStatus.setAttribute("disabled","disabled")
-												labelStatus.insertAdjacentElement("beforebegin",inputStatus);
-											</script>										
+											
+												<c:if test="${not item.ativo}">
+													
+													<li><b>Status:</b> Inativo</li>
+																										
+												</c:if>
+												<c:if test="${item.ativo}">
+													<li><b>Status:</b> Ativo</li>
+												</c:if>
+											
+																					
 										</label>
 									</div>
 									<div class="form-group">

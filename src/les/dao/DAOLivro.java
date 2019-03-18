@@ -108,7 +108,7 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 							
 				Livro novoLivro = (Livro) generosEncontrados.getResultado();
 				livroEncontrado.setCategorias((ArrayList<GeneroLiterario>) novoLivro.getCategorias());
-				livroEncontrado.setCategoriaInativacao(resultadoConsulta.getInt("liv_justificativa_inativacao"));
+				livroEncontrado.setCategoriaInativacao(resultadoConsulta.getInt("liv_categoria_inativacao_id"));
 				livroEncontrado.setJustificativaAtivacao(resultadoConsulta.getString("liv_justificativa_ativacao"));
 				livroEncontrado.setAutor(resultadoConsulta.getString("liv_autor"));
 				livroEncontrado.setTitulo(resultadoConsulta.getString("liv_titulo"));
@@ -232,5 +232,31 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 		
 		return resultado;
 	}
-
+	
+	public Resultado inativar(EntidadeDominio entidade) {
+		Resultado resultado = new Resultado();		
+		Livro livro = (Livro) entidade;
+		
+		String sql = "UPDATE livros SET liv_ativo = false, liv_categoria_inativacao_id = ?, liv_justificativa_inativacao = ? WHERE liv_id = ? ";
+		
+		try {
+			
+			PreparedStatement statement = conexao.prepareStatement(sql);
+			statement.setInt(1, livro.getCategoriaInativacao());
+			statement.setString(2, livro.getJustificativaInativacao());
+			statement.setInt(3, livro.getId().intValue());
+			statement.executeUpdate();
+			statement.close();
+			
+			resultado.setResultado(livro);
+			resultado.sucesso("Livro inativado com sucesso!");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultado.erro("Erro ao inativar o registro");
+		}
+		
+		
+		return resultado;
+	}
 }
