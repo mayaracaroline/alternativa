@@ -23,33 +23,15 @@
   <div class="panel panel-default">
   	<div class="panel-heading">Livros</div>
   	<div class="panel-body">
-      <div class="col-md-6">
+      <div class="col-md-6">          
+                    
+          <c:forEach var="item" items="${resultado}">
+             <label><b>Título: ${item.titulo}</b></label>             
+         </c:forEach>
+          
   		<form role="form" action="/livraria/CadastrarProduto" method="POST">
-          <script> 
-          	const obj = fetch('/livraria/ConsultaProduto?operacao=CONSULTAR&codigo=3', {
-          	  method: 'get', 
-          	  headers:{ // opcional
-          	  'Content-Type': 'application/json'
-          	  }
-          	})
-          	.then((response) => {
-          			console.log(response)
-          			response.text()
-          			.then((data)=> {
-          				console.log(data);
-          			});
-          		})
-                .catch(function(err){
-                  console.error('Failed retrieving information', err);
-                });
-                console.log('obj',obj.toString())
-          </script> 
 
   		  <div class="form-group">
-          <p>Oi</p>
-          <c:forEach var="item" items="${resultado}">
-             <label><b>Título: ${item.titulo}</b></label>
-          </c:forEach>
             
 			<label>Código:</label>
 			<input name="codigo" class="form-control" >									
@@ -152,7 +134,7 @@
 			<div class="form-group">
 			 <label>Justificativa ativação:</label>
 			 <input name="motivoAtivacao" class="form-control" >									
-			</div>
+			</div>     
 
 			<button type="reset" class="btn btn-default">Cancelar</button>
 			<button name="operacao" value="SALVAR" type="submit" class="btn btn-primary">Salvar</button>
@@ -166,7 +148,28 @@
 
 <!-- </div>
 </div> -->
-	
+
+         <script> 
+            const obj = fetch('/livraria/ConsultaProduto?operacao=CONSULTAR&codigo=3', {
+              method: 'get', 
+              headers:{ // opcional
+              'Content-Type': 'application/json'
+              }
+            })
+            .then((response) => {
+                console.log(response)
+                response.text()
+                .then((data)=> {
+                  console.log(data);
+                });
+              })
+                .catch(function(err){
+                  console.error('Failed retrieving information', err);
+                });
+          </script> 
+          
+          
+
 <script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/chart.min.js"></script>
