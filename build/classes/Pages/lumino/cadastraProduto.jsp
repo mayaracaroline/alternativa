@@ -1,3 +1,4 @@
+<%@page import="dominio.Livro"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page = "./sidebar.jsp" />      
@@ -23,20 +24,16 @@
   <div class="panel panel-default">
   	<div class="panel-heading">Livros</div>
   	<div class="panel-body">
-      <div class="col-md-6">          
-                    
-          <c:forEach var="item" items="${resultado}">
-             <label><b>Título: ${item.titulo}</b></label>             
-         </c:forEach>
-          
-  		<form role="form" action="/livraria/CadastrarProduto" method="POST">
+      <div class="col-md-6">
+        
+  		<form role="form" id="form" action="/livraria/CadastrarProduto" method="POST">
 
   		  <div class="form-group">
             
 			<label>Código:</label>
 			<input name="codigo" class="form-control" >									
 			<label>Título</label>
-			<input name="titulo" class="form-control" >
+			<input value="${livro.titulo}" id="titulo" name="titulo" class="form-control" >
 			<label>Autor:</label>
 			<input name="autor" class="form-control" >
 			<label>Ano publicação:</label>
@@ -134,13 +131,42 @@
 			<div class="form-group">
 			 <label>Justificativa ativação:</label>
 			 <input name="motivoAtivacao" class="form-control" >									
-			</div>     
+			</div>
 
 			<button type="reset" class="btn btn-default">Cancelar</button>
 			<button name="operacao" value="SALVAR" type="submit" class="btn btn-primary">Salvar</button>
       																
   		  </div> <!-- .form-group geral -->						  			 	 
         </form> 
+        
+       <label><b>Título:</b></label>
+       <span  id="sucesso"></span>
+       
+       <script>
+       	window.onload= function() {
+              fetch('/livraria/ConsultaProduto?operacao=CONSULTAR&codigo=3', {
+                method: 'get', 
+                headers:{ 
+                'Content-Type': 'application/json'
+                }
+              })
+                .then((response) => {
+                  const text = response.text().then(res => {                        	
+                  const html =  $.parseHTML(res);
+                  const form = $(html).find('#form')
+                  const formJSON = $(form).serializeArray();
+                  const span = document.getElementById('sucesso').innerHTML = formJSON[1].value;
+
+                 })
+               })                      
+              .catch(function(err){
+                console.error('Failed retrieving information', err);
+              });	
+       	}
+       	
+       </script>
+
+  
        </div><!-- /.col-->    		
       </div><!-- /.panel-body-->
   	</div><!-- /.panel-default -->
@@ -148,28 +174,7 @@
 
 <!-- </div>
 </div> -->
-
-         <script> 
-            const obj = fetch('/livraria/ConsultaProduto?operacao=CONSULTAR&codigo=3', {
-              method: 'get', 
-              headers:{ // opcional
-              'Content-Type': 'application/json'
-              }
-            })
-            .then((response) => {
-                console.log(response)
-                response.text()
-                .then((data)=> {
-                  console.log(data);
-                });
-              })
-                .catch(function(err){
-                  console.error('Failed retrieving information', err);
-                });
-          </script> 
-          
-          
-
+	
 <script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/chart.min.js"></script>

@@ -73,7 +73,7 @@
 					</a>
 					<ul class="children collapse" id="sub-item-2">
 						<li>
-                          <a class="" href="./cadastraProduto.jsp">
+                          <a class="" href="cadastraProduto.jsp">
 							<span class="fa fa-arrow-right">&nbsp;</span> Cadastrar
 						  </a>
                         </li>

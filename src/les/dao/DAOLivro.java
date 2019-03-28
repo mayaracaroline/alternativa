@@ -66,6 +66,7 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 			
 			resultado.setResultado(livro);
 			resultado.sucesso("Salvo com sucesso!");
+
 			
 			return resultado;
 			
@@ -124,6 +125,7 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 				livroEncontrado.setProfundidade(resultadoConsulta.getDouble("liv_profundidade"));
 				
 				contagem++;
+				resultado.setResultado(livroEncontrado);
 				listLivro.add(livroEncontrado);
 								
 			}

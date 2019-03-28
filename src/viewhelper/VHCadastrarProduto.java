@@ -190,7 +190,7 @@ public class VHCadastrarProduto implements IViewHelper {
 			}
 			else if(operacao.equals("CONSULTAR")){
 				if(resultado.getResultado() != null){					
-					RequestDispatcher rd = request.getRequestDispatcher("listaProduto.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/cadastraProduto.jsp");
 					rd.forward(request, response);
 				} else if(resultado.getListaResultado() != null){
 					RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/cadastraProduto.jsp");
