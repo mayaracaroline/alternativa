@@ -146,7 +146,7 @@
        	window.onload= function() {
               fetch('/livraria/ConsultaProduto?operacao=CONSULTAR&codigo=3', {
                 method: 'get', 
-                headers:{ 
+                headers:{ // opcional
                 'Content-Type': 'application/json'
                 }
               })

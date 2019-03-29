@@ -1,6 +1,6 @@
 package dominio;
 
-public class Estado extends EntidadeDominio {
+public class Pais extends EntidadeDominio {
   private String nome;
 
   public String getNome() {
@@ -10,6 +10,5 @@ public class Estado extends EntidadeDominio {
   public void setNome(String nome) {
     this.nome = nome;
   }
-  
-  
+    
 }
