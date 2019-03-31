@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import dominio.EntidadeDominio;
+import dominio.Livro;
 import les.dao.DAOLivro;
 import les.dao.IDAO;
 import les.negocio.IStrategy;
@@ -20,49 +21,55 @@ import util.Resultado;
 
 public class Fachada implements IFachada  {
 	
-	private Map<String, List<IStrategy>> mapStrategy;
+	private Map<String, List<IStrategy>> rnsProduto;
 	private Map<String, IDAO> mapDAO;
-	private List<IStrategy> listStrategySalvar;
-	private List<IStrategy> listStrategyConsultar;
-	private List<IStrategy> listStrategyExcluir;
-	private List<IStrategy> listStrategyAlterar;
-	private List<IStrategy> listStrategyInativar;
+	private Map<String, Map<String, List<IStrategy>>> rns;
+	
+	private List<IStrategy> listStrategySalvarProduto;
+	private List<IStrategy> listStrategyConsultarProduto;
+	private List<IStrategy> listStrategyExcluirProduto;
+	private List<IStrategy> listStrategyAlterarProduto;
+	private List<IStrategy> listStrategyInativarProduto;
 	
 	public Fachada() {
-		mapStrategy = new HashMap<String, List<IStrategy>>();
+	  rns = new HashMap<String, Map<String, List<IStrategy>>>();
+		rnsProduto = new HashMap<String, List<IStrategy>>();
 		mapDAO = new HashMap<String, IDAO>();
-
-		listStrategySalvar = new ArrayList<IStrategy>();
-		listStrategyConsultar = new ArrayList<IStrategy>();
-		listStrategyExcluir = new ArrayList<IStrategy>();
-		listStrategyAlterar = new ArrayList<IStrategy>();
-		listStrategyInativar = new ArrayList<IStrategy>(); 
-		
-		listStrategySalvar.add(new StValidarDadosObrigatorios());
-		listStrategySalvar.add(new StValidarMotivoAtivacao());
-		listStrategySalvar.add(new StComplementarGeneroLiterario());
-		listStrategySalvar.add(new StValidarExistencia());
-		
-		listStrategyConsultar.add(new StValidarIdInserido());
-		listStrategyConsultar.add(new StValidarLivroExclusaoEAlteracao());
-		
-		listStrategyExcluir.add(new StValidarIdInserido());
-		listStrategyExcluir.add(new StValidarLivroExclusaoEAlteracao());
-		
-		listStrategyAlterar.add(new StValidarIdInserido());
-		listStrategyAlterar.add(new StValidarLivroExclusaoEAlteracao());
-		
-		listStrategyInativar.add(new StValidarIdInserido());
-		listStrategyInativar.add(new StValidarLivroExclusaoEAlteracao());
-		listStrategyInativar.add(new StValidarMotivoCategoriaInativacao());
-		
-		mapStrategy.put("SALVAR", listStrategySalvar);
-		mapStrategy.put("CONSULTAR", listStrategyConsultar);
-		mapStrategy.put("EXCLUIR", listStrategyExcluir);
-		mapStrategy.put("ALTERAR", listStrategyAlterar);
-		mapStrategy.put("INATIVAR", listStrategyInativar);
 		
 		mapDAO.put("LIVRO", new DAOLivro());
+
+		listStrategySalvarProduto = new ArrayList<IStrategy>();
+		listStrategyConsultarProduto = new ArrayList<IStrategy>();
+		listStrategyExcluirProduto = new ArrayList<IStrategy>();
+		listStrategyAlterarProduto = new ArrayList<IStrategy>();
+		listStrategyInativarProduto = new ArrayList<IStrategy>(); 
+		
+		listStrategySalvarProduto.add(new StValidarDadosObrigatorios());
+		listStrategySalvarProduto.add(new StValidarMotivoAtivacao());
+		listStrategySalvarProduto.add(new StComplementarGeneroLiterario());
+		listStrategySalvarProduto.add(new StValidarExistencia());
+		
+		listStrategyConsultarProduto.add(new StValidarIdInserido());
+		listStrategyConsultarProduto.add(new StValidarLivroExclusaoEAlteracao());
+		
+		listStrategyExcluirProduto.add(new StValidarIdInserido());
+		listStrategyExcluirProduto.add(new StValidarLivroExclusaoEAlteracao());
+		
+		listStrategyAlterarProduto.add(new StValidarIdInserido());
+		listStrategyAlterarProduto.add(new StValidarLivroExclusaoEAlteracao());
+		
+		listStrategyInativarProduto.add(new StValidarIdInserido());
+		listStrategyInativarProduto.add(new StValidarLivroExclusaoEAlteracao());
+		listStrategyInativarProduto.add(new StValidarMotivoCategoriaInativacao());
+		
+		rnsProduto.put("SALVAR", listStrategySalvarProduto);
+		rnsProduto.put("CONSULTAR", listStrategyConsultarProduto);
+		rnsProduto.put("EXCLUIR", listStrategyExcluirProduto);
+		rnsProduto.put("ALTERAR", listStrategyAlterarProduto);
+		rnsProduto.put("INATIVAR", listStrategyInativarProduto);
+		
+    rns.put(Livro.class.getSimpleName().toUpperCase(), rnsProduto);
+				
 	}
 	
 	public Resultado validarStrategys(EntidadeDominio entidade, String operacao) {
@@ -70,9 +77,10 @@ public class Fachada implements IFachada  {
 		Resultado resultado = new Resultado();
 		String mensagem = "";
 		String mensagens = "";
+		String nmClasse = entidade.getClass().getSimpleName().toUpperCase();
 		
-		List<IStrategy> listStrategy;
-		listStrategy = mapStrategy.get(operacao);
+		Map<String, List<IStrategy>> regrasOperacao = rns.get(nmClasse);
+		List<IStrategy> listStrategy  = regrasOperacao.get(operacao);
 		
 		for (IStrategy iStrategy : listStrategy) {
 			

@@ -1,11 +1,8 @@
 package viewhelper;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +21,7 @@ import dominio.Telefone;
 import dominio.TipoLogradouro;
 import dominio.TipoResidencia;
 import dominio.TipoTelefone;
+import dominio.Usuario;
 import util.Numero;
 import util.Resultado;
 
@@ -377,11 +375,21 @@ public class VHCliente implements IViewHelper {
             enderecos.add(i,end);
         
       }
-
-
-      
+  
     }
     
+    Usuario usuario = new Usuario(); 
+    
+    String username = null != request.getParameter("email")
+        && !"".equals(request.getParameter("email"))
+        ? request.getParameter("email") : "";
+    String password = null != request.getParameter("senha")
+        && !"".equals(request.getParameter("senha")) 
+        ? request.getParameter("senha") : "";
+   
+    usuario.setUsername(username);
+    usuario.setPassword(password);
+        
     Cartao cartao = new Cartao();
     Bandeira bandeira = new Bandeira();
     
@@ -420,6 +428,7 @@ public class VHCliente implements IViewHelper {
     cliente.setCpf(cpf);
     cliente.setDataNascimento(dataNasc);
     cliente.setNome(nome);
+    cliente.setUsuario(usuario);
     cliente.setTelefone(telefone);
     
     return cliente;
