@@ -10,7 +10,7 @@ public class Cliente extends PessoaFisica {
   private Endereco enderecoEntrega;
   private Endereco enderecoCobranca;
   private Usuario usuario; 
-  //cartão
+  private Cartao cartao;
   
   public Telefone getTelefone() {
     return telefone;
@@ -42,8 +42,11 @@ public class Cliente extends PessoaFisica {
   public void setUsuario(Usuario usuario) {
     this.usuario = usuario;
   }
-  
-  
-  
+  public Cartao getCartao() {
+    return cartao;
+  }
+  public void setCartao(Cartao cartao) {
+    this.cartao = cartao;
+  }
 
 }

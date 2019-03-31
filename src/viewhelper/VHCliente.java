@@ -1,19 +1,29 @@
 package viewhelper;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dominio.Bandeira;
+import dominio.Cartao;
 import dominio.Cidade;
 import dominio.Cliente;
 import dominio.Endereco;
 import dominio.EntidadeDominio;
 import dominio.Estado;
+import dominio.Genero;
 import dominio.Pais;
+import dominio.Telefone;
 import dominio.TipoLogradouro;
 import dominio.TipoResidencia;
+import dominio.TipoTelefone;
 import util.Numero;
 import util.Resultado;
 
@@ -22,10 +32,43 @@ public class VHCliente implements IViewHelper {
   @Override
   public EntidadeDominio getEntidade(HttpServletRequest request) {
     Cliente cliente = new Cliente();
-    Endereco enderecoEntrega = new Endereco();
-    Endereco enderecoCobranca = new Endereco();
     List<Endereco> enderecos = new ArrayList<Endereco>();
     
+    String nome = null != request.getParameter("nome") && 
+        !"".equals(request.getParameter("nome"))
+        ? request.getParameter("nome") : "" ;
+    String strDataNasc = null != request.getParameter("data-nasc") && 
+        !"".equals(request.getParameter("data-nasc")) 
+        ? request.getParameter("data-nasc") : "";
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate dataNasc = LocalDate.parse(strDataNasc,formatter);
+     
+        
+    String genero = null != request.getParameter("genero") &&
+       !"".equals(request.getParameter("genero")) 
+       ? request.getParameter("genero") : "";   
+    
+    String cpf = null != request.getParameter("cpf") &&
+       !"".equals(request.getParameter("cpf")) 
+       ? request.getParameter("cpf").replace(".","").replaceAll("-", "").trim() : "";
+       
+    Telefone telefone = new Telefone();
+    
+    String tipoTelefone = null != request.getParameter("tipo-telefone") &&
+        !"".equals(request.getParameter("tipo-telefone"))
+        ? request.getParameter("tipo-telefone") : "";
+        
+    String ddd = null != request.getParameter("ddd") 
+        && !"".equals(request.getParameter("ddd"))
+        ? request.getParameter("ddd").replace("(", "").replace(")", "").trim() : ""; 
+    String numeroTelefone = null!= request.getParameter("telefone") 
+        && !"".equals(request.getParameter("telefone")) 
+        ? request.getParameter("telefone") : "";
+        
+    telefone.setDdd(ddd);
+    telefone.setNumero(numeroTelefone);
+    telefone.setTipo(TipoTelefone.valueOf(tipoTelefone));
+        
     String strIsCobranca = request.getParameter("checkbox-endereco-cobranca");
     String strIsEntrega = request.getParameter("checkbox-endereco-entrega");
     boolean isCobranca = null == strIsCobranca ? false : true;
@@ -42,7 +85,7 @@ public class VHCliente implements IViewHelper {
         && Numero.isNumeric(request.getParameter("tipo-logradouro0").trim()) 
         ?  Integer.parseInt(request.getParameter("tipo-logradouro0")) : 0;
    
-    String logradouro = null != request.getParameter("logadouro0") ? 
+    String logradouro = null != request.getParameter("logradouro0") ? 
         request.getParameter("logradouro0") : "";
 
     int numero = null != request.getParameter("numero0") 
@@ -105,6 +148,7 @@ public class VHCliente implements IViewHelper {
         
       for (int i = 0; i < 3; i++) {
         enderecos.add(endereco);
+        System.out.println(i);
       }      
     } else if (!isCobranca && isEntrega) {
     
@@ -122,7 +166,7 @@ public class VHCliente implements IViewHelper {
           && Numero.isNumeric(request.getParameter("tipo-logradouro2").trim()) 
           ?  Integer.parseInt(request.getParameter("tipo-logradouro2")) : 0;
      
-      logradouro = null != request.getParameter("logadouro2") ? 
+      logradouro = null != request.getParameter("logradouro2") ? 
           request.getParameter("logradouro2") : "";
 
       numero = null != request.getParameter("numero2") 
@@ -182,8 +226,9 @@ public class VHCliente implements IViewHelper {
       
       enderecos.add(2, endCobranca);
       
-    } else {
+    } else if (isCobranca && !isEntrega) {
       enderecos.add(0,endereco);
+      enderecos.add(1,endereco);
       enderecos.add(2,endereco);
 
       Endereco endEntrega = new Endereco();
@@ -196,7 +241,7 @@ public class VHCliente implements IViewHelper {
           && Numero.isNumeric(request.getParameter("tipo-logradouro1").trim()) 
           ?  Integer.parseInt(request.getParameter("tipo-logradouro1")) : 0;
      
-      logradouro = null != request.getParameter("logadouro2") ? 
+      logradouro = null != request.getParameter("logradouro2") ? 
           request.getParameter("logradouro1") : "";
 
       numero = null != request.getParameter("numero1") 
@@ -255,14 +300,132 @@ public class VHCliente implements IViewHelper {
       endEntrega.setTipoResidencia(TipoResidencia.valueOf(tipoResidencia));      
       
       enderecos.add(1, endEntrega);
+    }  else {
+      
+      enderecos.add(0,endereco);
+      
+      for (int i = 1; i < 3; i++) {
+
+        Endereco end = new Endereco();
+        tipoResidencia = null != request.getParameter("tipo-residencia"+i) 
+            && !"".equals(request.getParameter("tipo-residencia"+i))
+            ?  request.getParameter("tipo-residencia"+i) : "";
+  
+        idTipoLogradouro = null != request.getParameter("tipo-logradouro"+i) 
+            && !"".equals(request.getParameter("tipo-logradouro"+i))
+            && Numero.isNumeric(request.getParameter("tipo-logradouro"+i).trim()) 
+            ?  Integer.parseInt(request.getParameter("tipo-logradouro"+i)) : 0;
+       
+        logradouro = null != request.getParameter("logradouro"+i) ? 
+            request.getParameter("logradouro"+i) : "";
+  
+        numero = null != request.getParameter("numero"+i) 
+            && !"".equals(request.getParameter("numero"+i))
+            && Numero.isNumeric(request.getParameter("numero"+i).trim()) 
+            ?  Integer.parseInt(request.getParameter("numero"+i)) : 0;
+            
+        bairro = null != request.getParameter("bairro"+i) 
+                && !"".equals(request.getParameter("bairro"+i))
+                ?  request.getParameter("bairro"+i) : "";  
+                
+        idEstado = null != request.getParameter("estado"+i) 
+          && !"".equals(request.getParameter("estado"+i))
+          && Numero.isNumeric(request.getParameter("estado"+i).trim()) 
+          ?  Integer.parseInt(request.getParameter("estado"+i)) : 0;     
+          
+        idPais = null != request.getParameter("pais"+i) 
+          && !"".equals(request.getParameter("pais"))
+          && Numero.isNumeric(request.getParameter("pais"+i).trim())
+          ?  Integer.parseInt(request.getParameter("pais"+i)) : 0;             
+        
+        observacoes = null != request.getParameter("observacoes"+i) 
+            && !"".equals(request.getParameter("observacoes"+i))
+            ?  request.getParameter("observacoes"+i) : "";
+        
+        cep = null != request.getParameter("cep"+i) 
+            && !"".equals(request.getParameter("cep"+i))
+            ?  request.getParameter("cep"+i) : "";
+            
+        idCidade = null != request.getParameter("cidade"+i) 
+            && !"".equals(request.getParameter("cidade"+i))
+            && Numero.isNumeric(request.getParameter("cidade"+i).trim())
+            ?  Integer.parseInt(request.getParameter("cidade"+i)) : 0;
+            
+            estado = new Estado();
+            estado.setId(idEstado);
+            
+            pais = new Pais();
+            pais.setId(idPais);
+            
+            cidade = new Cidade();
+            cidade.setId(idCidade);
+            cidade.setEstado(estado);
+            
+            tipoLogradouro = new TipoLogradouro();
+            tipoLogradouro.setId(idTipoLogradouro);              
+            
+            end.setBairro(bairro);
+            end.setCep(cep);
+            end.setCidade(cidade);
+            end.setLogradouro(logradouro);
+            end.setNumero(numero);
+            end.setObservacao(observacoes);
+            end.setPais(pais);
+            end.setTipoLogradouro(tipoLogradouro);
+            end.setTipoResidencia(TipoResidencia.valueOf(tipoResidencia));
+            
+            enderecos.add(i,end);
+        
+      }
+
+
+      
     }
+    
+    Cartao cartao = new Cartao();
+    Bandeira bandeira = new Bandeira();
+    
+    String nomeTitular = null != request.getParameter("nome-titular")
+        && !"".equals(request.getParameter("nome-titular"))
+        ? request.getParameter("nome-titular") : "";
+    
+    String numeroCartao = null != request.getParameter("numero-cartao")
+        && !"".equals(request.getParameter("numero-cartao"))
+        ? request.getParameter("numero-cartao") : "";
+    
+    int codBandeira = null != request.getParameter("bandeira") 
+        && !"".equals(request.getParameter("bandeira"))
+        && Numero.isNumeric(request.getParameter("bandeira")) 
+        ? Integer.parseInt(request.getParameter("bandeira")) : 0;
+
+    int codSeguranca = null != request.getParameter("cod-seguranca") 
+        && !"".equals(request.getParameter("cod-seguranca"))
+        && Numero.isNumeric(request.getParameter("cod-seguranca")) 
+        ? Integer.parseInt(request.getParameter("cod-seguranca")) : 0;
+        
+    boolean cartaoPreferencial = null == request.getParameter("checkbox-cartao-preferencial") ? false : true;
+    
+    bandeira.setId(codBandeira);
+    cartao.setBandeira(bandeira);
+    cartao.setCodSeguranca(codSeguranca);
+    cartao.setNomeTitular(nomeTitular);
+    cartao.setNumero(numeroCartao);
+    cartao.setPreferencial(cartaoPreferencial);    
     
     cliente.setEnderecoResidencial(enderecos.get(0));
     cliente.setEnderecoEntrega(enderecos.get(1));
     cliente.setEnderecoCobranca(enderecos.get(2));
+    cliente.setCartao(cartao);
+    cliente.setGenero(Genero.valueOf(genero));
+    cliente.setCpf(cpf);
+    cliente.setDataNascimento(dataNasc);
+    cliente.setNome(nome);
+    cliente.setTelefone(telefone);
     
     return cliente;
   }
+  
+  
 
   @Override
   public void setView(Resultado resultado, HttpServletRequest request, HttpServletResponse response) {

@@ -20,11 +20,12 @@ import les.command.ICommand;
 import util.Resultado;
 import viewhelper.IViewHelper;
 import viewhelper.VHCadastrarProduto;
+import viewhelper.VHCliente;
 
 /**
  * Servlet implementation class CadastrarProdutoController
  */
-@WebServlet({ "/CadastrarProduto", "/cadastro", "/ConsultaProduto", "/ExcluiProduto", "/AlterarProduto", "/InativaProduto"})
+@WebServlet({ "/CadastrarProduto", "/cadastro", "/ConsultaProduto", "/ExcluiProduto", "/AlterarProduto", "/InativaProduto","/CadastraCliente"})
 public class CadastrarProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, IViewHelper> mapViewHelper;
@@ -42,6 +43,7 @@ public class CadastrarProdutoController extends HttpServlet {
     	mapViewHelper.put("/livraria/ExcluiProduto", new VHCadastrarProduto());
     	mapViewHelper.put("/livraria/AlterarProduto", new VHCadastrarProduto());
     	mapViewHelper.put("/livraria/InativaProduto", new VHCadastrarProduto());
+    	mapViewHelper.put("/livraria/CadastraCliente", new VHCliente());
     	
     	mapCommand = new HashMap<String, ICommand>();
     	mapCommand.put("SALVAR", new CommandSalvar());

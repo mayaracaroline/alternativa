@@ -2,20 +2,20 @@ package dominio;
 
 public class Telefone {
   
-  private String tipo;
-  private int ddd;
+  private TipoTelefone tipoTelefone;
+  private String ddd;
   private String numero;
   
-  public String getTipo() {
-    return tipo;
+  public TipoTelefone getTipo() {
+    return tipoTelefone;
   }
-  public void setTipo(String tipo) {
-    this.tipo = tipo;
+  public void setTipo(TipoTelefone tipo) {
+    this.tipoTelefone = tipo;
   }
-  public int getDdd() {
+  public String getDdd() {
     return ddd;
   }
-  public void setDdd(int ddd) {
+  public void setDdd(String ddd) {
     this.ddd = ddd;
   }
   public String getNumero() {

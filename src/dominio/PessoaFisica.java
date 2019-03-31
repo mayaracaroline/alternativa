@@ -1,11 +1,12 @@
 package dominio;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class PessoaFisica extends Pessoa {
 	protected String cpf;
 	protected Genero genero;
-	protected Date dataNacimento ;
+	protected LocalDate dataNascimento ;
 	
   public String getCpf() {
     return cpf;
@@ -19,11 +20,11 @@ public class PessoaFisica extends Pessoa {
   public void setGenero(Genero genero) {
     this.genero = genero;
   }
-  public Date getDataNacimento() {
-    return dataNacimento;
+  public LocalDate getDataNascimento() {
+    return dataNascimento;
   }
-  public void setDataNacimento(Date dataNacimento) {
-    this.dataNacimento = dataNacimento;
+  public void setDataNascimento(LocalDate dataNascimento) {
+    this.dataNascimento = dataNascimento;
   }
 
 }

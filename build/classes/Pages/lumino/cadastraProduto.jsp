@@ -143,26 +143,24 @@
        <span  id="sucesso"></span>
        
        <script>
-       	window.onload= function() {
-              fetch('/livraria/ConsultaProduto?operacao=CONSULTAR&codigo=3', {
-                method: 'get', 
-                headers:{ // opcional
-                'Content-Type': 'application/json'
-                }
-              })
-                .then((response) => {
-                  const text = response.text().then(res => {                        	
-                  const html =  $.parseHTML(res);
-                  const form = $(html).find('#form')
-                  const formJSON = $(form).serializeArray();
-                  const span = document.getElementById('sucesso').innerHTML = formJSON[1].value;
 
-                 })
-               })                      
-              .catch(function(err){
-                console.error('Failed retrieving information', err);
-              });	
-       	}
+          fetch('/livraria/ConsultaProduto?operacao=CONSULTAR&codigo=3', {
+            method: 'get', 
+            headers:{ // opcional
+            'Content-Type': 'application/json'
+            }
+          })
+            .then((response) => {
+              const text = response.text().then(res => {                        	
+              const html =  $.parseHTML(res);
+              const form = $(html).find('#form')
+              const formJSON = $(form).serializeArray();
+              const span = document.getElementById('sucesso').innerHTML = formJSON[1].value;
+             })
+           })                      
+          .catch(function(err){
+            console.error('Failed retrieving information', err);
+          });	
        	
        </script>
 
@@ -175,14 +173,14 @@
 <!-- </div>
 </div> -->
 	
-<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/custom.js"></script>
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+	<script src="../../js/bootstrap.min.js"></script>
+	<script src="../../js/chart.min.js"></script>
+	<script src="../../js/chart-data.js"></script>
+	<script src="../../js/easypiechart.js"></script>
+	<script src="../../js/easypiechart-data.js"></script>
+	<script src="../../js/bootstrap-datepicker.js"></script>
+	<script src="../../js/custom.js"></script>
 	
 </body>
 </html>
