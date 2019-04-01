@@ -45,15 +45,14 @@ public class VHCliente implements IViewHelper {
         ? request.getParameter("data-nasc") : "";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate dataNasc = LocalDate.parse(strDataNasc,formatter);
-     
-        
+             
     String genero = null != request.getParameter("genero") &&
        !"".equals(request.getParameter("genero")) 
        ? request.getParameter("genero") : "";   
     
     String cpf = null != request.getParameter("cpf") &&
        !"".equals(request.getParameter("cpf")) 
-       ? request.getParameter("cpf").replace(".","").replaceAll("-", "").trim() : "";
+       ? request.getParameter("cpf").replace(".","").replace("-", "").trim() : "";
        
     Telefone telefone = new Telefone();
     
@@ -147,14 +146,12 @@ public class VHCliente implements IViewHelper {
     endereco.setObservacao(observacoes);
     endereco.setPais(pais);
     endereco.setTipoLogradouro(tipoLogradouro);
-    endereco.setTipoResidencia(TipoResidencia.valueOf(tipoResidencia));
-          
+    endereco.setTipoResidencia(TipoResidencia.valueOf(tipoResidencia));          
     
     if(isCobranca && isEntrega) {
         
       for (int i = 0; i < 3; i++) {
         enderecos.add(endereco);
-        System.out.println(i);
       }      
     } else if (!isCobranca && isEntrega) {
     

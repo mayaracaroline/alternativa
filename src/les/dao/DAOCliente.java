@@ -1,11 +1,12 @@
 package les.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import dominio.Cliente;
+import dominio.Endereco;
 import dominio.EntidadeDominio;
 import util.Resultado;
 
@@ -48,6 +49,30 @@ public class DAOCliente extends AbstractDAO implements IDAO {
         id = rs.getBigDecimal(1).toBigInteger();
       }
       
+      cliente.setId(id.intValue());
+      DAOEndereco daoEndereco = new DAOEndereco();
+      
+      if (cliente.getEnderecoResidencial() != null) {
+        Resultado rsEndResidencial = daoEndereco.salvar(cliente.getEnderecoResidencial());
+        Endereco endereco = (Endereco) rsEndResidencial.getResultado();
+        cliente.getEnderecoResidencial().setId(endereco.getId().intValue());
+      }
+      
+      if (cliente.getEnderecoEntrega() != null) {
+        Resultado rsEndEntrega = daoEndereco.salvar(cliente.getEnderecoEntrega());
+        Endereco endereco = (Endereco) rsEndEntrega.getResultado();
+        cliente.getEnderecoEntrega().setId(endereco.getId().intValue());
+      }
+      if (cliente.getEnderecoCobranca() != null) {
+        Resultado rsEndCobranca = daoEndereco.salvar(cliente.getEnderecoCobranca());
+        Endereco endereco = (Endereco) rsEndCobranca.getResultado();
+        cliente.getEnderecoCobranca().setId(endereco.getId().intValue());
+      }  
+      
+      DAOClientes_Endereco daoCliEndereco = new DAOClientes_Endereco();
+      
+      daoCliEndereco.salvar(cliente);
+            
       resultado.sucesso("Cliente salvo com sucesso");
       
     } catch (Exception e) {

@@ -50,12 +50,12 @@ public class DAOEstado extends AbstractDAO implements IDAO {
         }
         
       } catch (Exception e) {
-        resultado.erro("Erro ao realizar consulta de Cidades");
+        resultado.erro("Erro ao realizar consulta de estado");
         e.printStackTrace();
       }
       
     } else { // Busca por Id
-      sql = "SELECT FROM estado WHERE est_id = ?";
+      sql = "SELECT * FROM estado WHERE est_id = ? ;";
 
       try {
         

@@ -94,10 +94,10 @@
                                     <label>Tipo do logradouro: *</label>
                                     <select name="tipo-logradouro0" class="form-control" >
                                       <option>Selecionar</option>
-                                      <option value="1">Alameda</option>
+                                      <option value="4">Alameda</option>
                                       <option value="2">Avenida</option>
                                       <option value="3">Rodovia</option>
-                                      <option value="4" selected>Rua</option>
+                                      <option value="1" selected>Rua</option>
                                     </select>
                                   <label for="logradouro0">
                                     Logradouro: *
@@ -165,10 +165,10 @@
                                       <label>Tipo do logradouro: *</label>
                                       <select name="tipo-logradouro1" class="form-control" >
                                         <option value="0">Selecionar</option>
-                                        <option value="1">Alameda</option>
+                                        <option value="4">Alameda</option>
                                         <option value="2">Avenida</option>
                                         <option value="3">Rodovia</option>
-                                        <option value="4" selected>Rua</option>
+                                        <option value="1" selected>Rua</option>
                                       </select>
                                     <label for="logradouro1">
                                       Logradouro: *
@@ -226,11 +226,11 @@
                                       </select>
                                       <label>Tipo do logradouro: *</label>
                                       <select name="tipo-logradouro2" class="form-control" >
-                                        <option value="1">Selecionar</option>
-                                        <option value="2">Alameda</option>
+                                        <option value="10">Selecionar</option>
+                                        <option value="4">Alameda</option>
                                         <option value="3">Avenida</option>
-                                        <option value="4">Rodovia</option>
-                                        <option value="5" selected>Rua</option>
+                                        <option value="2">Rodovia</option>
+                                        <option value="1" selected>Rua</option>
                                       </select>
                                     <label for="logradouro2">
                                       Logradouro: *

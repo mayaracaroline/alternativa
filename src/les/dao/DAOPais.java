@@ -54,7 +54,7 @@ public class DAOPais extends AbstractDAO implements IDAO {
       }
       
     } else {
-      sql = "SELECT FROM pais WHERE pai_id = ?";
+      sql = "SELECT * FROM pais WHERE pai_id = ?;";
 
       try {
         

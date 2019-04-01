@@ -14,6 +14,7 @@ import les.dao.DAOCliente;
 import les.dao.DAOLivro;
 import les.dao.IDAO;
 import les.negocio.IStrategy;
+import les.negocio.StComplementarCidade;
 import les.negocio.StComplementarGeneroLiterario;
 import les.negocio.StValidarDadosObrigatorios;
 import les.negocio.StValidarExistencia;
@@ -72,6 +73,7 @@ public class Fachada implements IFachada  {
 		listStrategyInativarProduto.add(new StValidarMotivoCategoriaInativacao());
 		
 		listStrategySalvarCliente = new ArrayList<IStrategy>();
+		listStrategySalvarCliente.add(new StComplementarCidade());
 		
 		rnsProduto.put("SALVAR", listStrategySalvarProduto);
 		rnsProduto.put("CONSULTAR", listStrategyConsultarProduto);

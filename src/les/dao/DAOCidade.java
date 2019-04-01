@@ -66,7 +66,7 @@ public class DAOCidade extends AbstractDAO implements IDAO {
       }
       
     } else {
-      sql = "SELECT FROM cidade WHERE cid_id = ?";
+      sql = "SELECT * FROM cidade WHERE cid_id = ?";
       
       try {
         PreparedStatement preparedStatement = conexao.prepareStatement(sql);
