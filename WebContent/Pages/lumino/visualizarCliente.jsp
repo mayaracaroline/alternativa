@@ -15,7 +15,7 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-			 <h1 class="page-header">Cadastrar</h1>
+			 <h1 class="page-header">Consultar</h1>
 			</div>
 		</div><!--/.row-->
 				
@@ -34,19 +34,17 @@
                               <div class="panel-body">
                                 <div class="form-group">
                                   <label>Nome:</label>
-                                  <input name="nome" class="form-control" >
+                                  <input name="nome" class="form-control" value="${cliente.nome}">
                                   <label>Sobrenome:</label>
-                                  <input name="sobrenome" class="form-control" >                    
+                                  <input name="sobrenome" class="form-control" value="${cliente.sobrenome}" >                    
                                   <label>Data de Nascimento:</label>
                                   <input name="data-nasc" type="date" class="form-control">
                                   <label>Gênero:</label>
                                   <select name="genero" class="form-control">
-                                    <option value="FEMININO">Feminino</option>
-                                    <option value="MASCULINO">Masculino</option>
-                                    <option value="INDEFINIDO">Não desejo informar</option>
+                                    <option value="${cliente.genero}">Feminino</option>
                                   </select>
                                   <label>CPF</label>
-                                  <input name="cpf" class="form-control" onkeypress="mascara(this, '###.###.###-##')" maxlength="14">
+                                  <input value="${cliente.cpf}" name="cpf" class="form-control" onkeypress="mascara(this, '###.###.###-##')" maxlength="14">
                               </div>
                             </div> 
                            </div> <!-- Panel - Dados Pessoais -->
@@ -57,12 +55,10 @@
                                   <label>Telefone</label><br>
                                   <label>Tipo:</label>
                                   <select name="tipo-telefone" class="form-control">
-                                    <option value="RESIDENCIAL">Residencial</option>
-                                    <option value="COMERCIAL">Comercial</option>
-                                    <option value="CELULAR">Celular</option>
+                                    <option value="RESIDENCIAL">${cliente.telefone.tipo}</option>
                                   </select>
-                                  <input type="text" name="ddd" class="form-control" placeholder="(11)">
-                                  <input type="text" name="telefone" class="form-control" placeholder="99592-6070"> 
+                                  <input type="text" name="ddd" class="form-control" value="${cliente.telefone.ddd}">
+                                  <input type="text" name="telefone" class="form-control" value="${cliente.telefone.numero}"> 
                               </div>
                             </div> 
                            </div> <!-- Panel - Contatos -->
@@ -71,9 +67,7 @@
                               <div class="panel-body">
                                 <div class="form-group">
                                   <label>E-mail:</label>
-                                  <input name="email" class="form-control" >
-                                  <label>Senha:</label>
-                                  <input name="senha" type="password" class="form-control" >
+                                  <input name="email" class="form-control" value="${cliente.usuario.username}">
                               </div>
                             </div> 
                            </div> <!-- Panel - Dados de usuário -->  
@@ -84,70 +78,42 @@
                                 <div class="form-group">
                                    <label>Tipo de residência: *</label>
                                     <select name="tipo-residencia0" class="form-control"  >
-                                      <option>Selecionar</option>
-                                      <option selected value="CASA">Casa</option>
-                                      <option value="APARTAMENTO">Apartamento</option>
-                                      <option value="CONDOMINIO">Condomínio</option>
-                                      <option value="SITIO">Sítio</option>
-                                      <option value="CHACARA">Chacára</option>                                     
+                                      <option selected >${cliente.enderecoResidencial.tipoResidencia}</option>                                     
                                     </select>
                                     <label>Tipo do logradouro: *</label>
                                     <select name="tipo-logradouro0" class="form-control" >
-                                      <option>Selecionar</option>
-                                      <option value="4">Alameda</option>
-                                      <option value="2">Avenida</option>
-                                      <option value="3">Rodovia</option>
-                                      <option value="1" selected>Rua</option>
+                                      <option value="4">${cliente.enderecoResidencial.tipoLogradouro.tipo}</option>
                                     </select>
                                   <label for="logradouro0">
                                     Logradouro: *
-                                    <input name="logradouro0" class="form-control" type="text" value="Av. Carlos Barattino" >
+                                    <input name="logradouro0" class="form-control" type="text" value="${cliente.enderecoResidencial.logradouro}" >
                                   </label>
                                   <label for="numero0">
                                     Nº: *
-                                    <input name="numero0" class="form-control" type="text" value="98" size="2">
+                                    <input name="numero0" class="form-control" type="text" value="${cliente.enderecoResidencial.numero}" size="2">
                                   </label>
                                   <label for="bairro0">
                                       Bairro: *
-                                      <input name="bairro0" class="form-control" type="text" value="Vila Nova Mogilar" >
+                                      <input name="bairro0" class="form-control" type="text" value="${cliente.enderecoResidencial.bairro}" >
                                   </label>
                                   <label>
                                    CEP: *
-                                    <input name="cep0" class="form-control" type="text" value="08673250">
-                                  </label>
+                                    <input name="cep0" class="form-control" type="text" value="${cliente.enderecoResidencial.cep}">
+                                  </label><br>
                                   <label>País: *</label>
                                   <select name="pais0" class="form-control" >
-                                    <option value="1" selected>Brasil</option>
-                                    <option value="2">Bangladesh</option>
-                                    <option value="3">UK</option>
-                                    <option value="4">India</option>
+                                    <option value="1" selected>${cliente.enderecoResidencial.pais.nome}</option>
                                   </select>   
                                   <label>UF: *</label>
                                   <select name="estado0" class="form-control" >
-                                    <option value="1" selected>Afonso Cláudio</option>
-                                    <option value="2">Rio de Janeiro</option>
-                                    <option value="3">Rio Grande do Sul</option>
-                                    <option value="4">Santa Catarina</option>
-                                    <option value="5">Espirito Santo</option>
+                                    <option value="1" selected>${cliente.enderecoResidencial.cidade.estado.nome}</option>
                                   </select>
                                     <label>Cidade: *</label>
                                     <select name="cidade0" class="form-control" >
-                                      <option selected value="1">São Paulo</option>
-                                      <option value="2">Rio de Janeiro</option>
-                                      <option value="3">Porto Alegre</option>
-                                      <option value="4">Florianópolis</option>
-                                      <option value="5">Vitória</option>
+                                      <option selected value="1">${cliente.enderecoResidencial.cidade.nome}</option>
                                     </select>                                  
                                   <label>Observações:</label>
-                                  <input class="form-control" type="text" name="observacoes0" placeholder="Ex: Ap. 25, Fundos etc." >
-                                  <div class="checkbox">
-                                     <label>
-                                       <input name="checkbox-endereco-cobranca" type="checkbox" onclick="toggleDisplayElement(this,'endereco-cobranca')" value=""> Considerar também para cobrança
-                                     </label><br><br>
-                                     <label>
-                                       <input name="checkbox-endereco-entrega" type="checkbox"  onclick="toggleDisplayElement(this,'endereco-entrega')" value=""> Considerar também para entrega
-                                     </label>
-                                  </div>
+                                  <input class="form-control" type="text" name="observacoes0" value="${cliente.enderecoResidencial.observacao}">
                                 </div>
                               </div> 
                              </div> <!-- Panel - Endereço Residencial -->
@@ -203,7 +169,7 @@
                                     </select>
                                     <label>Cidade: *</label>
                                     <select name="cidade1" class="form-control" >
-                                      <option  value="1"selected>Afonso Cláudio</option>
+                                      <option  value="1"selected>São Paulo</option>
                                       <option value="2">Rio de Janeiro</option>
                                       <option value="3">Porto Alegre</option>
                                       <option value="4">Florianópolis</option>
@@ -265,7 +231,7 @@
                                     </select>
                                     <label>Cidade: *</label>
                                     <select name="cidade2" class="form-control" >
-                                      <option value="1" selected>Afonso Cláudio</option>
+                                      <option value="1" selected>São Paulo</option>
                                       <option value="2">Rio de Janeiro</option>
                                       <option value="3">Porto Alegre</option>
                                       <option value="4">Florianópolis</option>

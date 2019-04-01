@@ -124,7 +124,7 @@
                                   </select>   
                                   <label>UF: *</label>
                                   <select name="estado0" class="form-control" >
-                                    <option value="1" selected>São Paulo</option>
+                                    <option value="1" selected>Afonso Cláudio</option>
                                     <option value="2">Rio de Janeiro</option>
                                     <option value="3">Rio Grande do Sul</option>
                                     <option value="4">Santa Catarina</option>
@@ -203,7 +203,7 @@
                                     </select>
                                     <label>Cidade: *</label>
                                     <select name="cidade1" class="form-control" >
-                                      <option  value="1"selected>São Paulo</option>
+                                      <option  value="1"selected>Afonso Cláudio</option>
                                       <option value="2">Rio de Janeiro</option>
                                       <option value="3">Porto Alegre</option>
                                       <option value="4">Florianópolis</option>
@@ -265,7 +265,7 @@
                                     </select>
                                     <label>Cidade: *</label>
                                     <select name="cidade2" class="form-control" >
-                                      <option value="1" selected>São Paulo</option>
+                                      <option value="1" selected>Afonso Cláudio</option>
                                       <option value="2">Rio de Janeiro</option>
                                       <option value="3">Porto Alegre</option>
                                       <option value="4">Florianópolis</option>

@@ -49,13 +49,13 @@ public class VHCliente implements IViewHelper {
         
     String strDataNasc = null != request.getParameter("data-nasc") && 
         !"".equals(request.getParameter("data-nasc")) 
-        ? request.getParameter("data-nasc") : "";
+        ? request.getParameter("data-nasc") : "1970-01-01";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate dataNasc = LocalDate.parse(strDataNasc,formatter);
              
     String genero = null != request.getParameter("genero") &&
        !"".equals(request.getParameter("genero")) 
-       ? request.getParameter("genero") : "";   
+       ? request.getParameter("genero") : "SELECIONE";   
     
     String cpf = null != request.getParameter("cpf") &&
        !"".equals(request.getParameter("cpf")) 
@@ -65,7 +65,7 @@ public class VHCliente implements IViewHelper {
     
     String tipoTelefone = null != request.getParameter("tipo-telefone") &&
         !"".equals(request.getParameter("tipo-telefone"))
-        ? request.getParameter("tipo-telefone") : "";
+        ? request.getParameter("tipo-telefone") : "SELECIONE";
         
     String ddd = null != request.getParameter("ddd") 
         && !"".equals(request.getParameter("ddd"))
@@ -90,7 +90,7 @@ public class VHCliente implements IViewHelper {
     
     String tipoResidencia = null != request.getParameter("tipo-residencia0") 
         && !"".equals(request.getParameter("tipo-residencia0"))
-        ?  request.getParameter("tipo-residencia0") : "";
+        ?  request.getParameter("tipo-residencia0") : "SELECIONE";
 
     int idTipoLogradouro = null != request.getParameter("tipo-logradouro0") 
         && !"".equals(request.getParameter("tipo-logradouro0"))
@@ -179,7 +179,7 @@ public class VHCliente implements IViewHelper {
       Endereco endCobranca = new Endereco();
       tipoResidencia = null != request.getParameter("tipo-residencia2") 
           && !"".equals(request.getParameter("tipo-residencia2"))
-          ?  request.getParameter("tipo-residencia2") : "";
+          ?  request.getParameter("tipo-residencia2") : "SELECIONE";
 
       idTipoLogradouro = null != request.getParameter("tipo-logradouro2") 
           && !"".equals(request.getParameter("tipo-logradouro2"))
@@ -254,7 +254,7 @@ public class VHCliente implements IViewHelper {
       Endereco endEntrega = new Endereco();
       tipoResidencia = null != request.getParameter("tipo-residencia1") 
           && !"".equals(request.getParameter("tipo-residencia1"))
-          ?  request.getParameter("tipo-residencia1") : "";
+          ?  request.getParameter("tipo-residencia1") : "SELECIONE";
 
       idTipoLogradouro = null != request.getParameter("tipo-logradouro1") 
           && !"".equals(request.getParameter("tipo-logradouro1"))
@@ -328,7 +328,7 @@ public class VHCliente implements IViewHelper {
 
         tipoResidencia = null != request.getParameter("tipo-residencia"+i) 
             && !"".equals(request.getParameter("tipo-residencia"+i))
-            ?  request.getParameter("tipo-residencia"+i) : "";
+            ?  request.getParameter("tipo-residencia"+i) : "SELECIONE";
   
         idTipoLogradouro = null != request.getParameter("tipo-logradouro"+i) 
             && !"".equals(request.getParameter("tipo-logradouro"+i))
@@ -462,6 +462,7 @@ public class VHCliente implements IViewHelper {
     cliente.setUsuario(usuario);
     cliente.setTelefone(telefone);
     cliente.setDataCadastro(dataCadastro);
+    cliente.setId(codigo);
     
     return cliente;
   }  
@@ -506,7 +507,7 @@ public class VHCliente implements IViewHelper {
       else if(operacao.equals("CONSULTAR")){
         if(resultado.getResultado() != null){         
 //          RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/cadastraProduto.jsp");
-          RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
+          RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/visualizarCliente.jsp");
           rd.forward(request, response);
         } else if(resultado.getListaResultado() != null){
           RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");

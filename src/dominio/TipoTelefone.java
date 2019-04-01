@@ -1,5 +1,5 @@
 package dominio;
 
 public enum TipoTelefone {
-  RESIDENCIAL, CELULAR, COMERCIAL
+  RESIDENCIAL, CELULAR, COMERCIAL, SELECIONE
 }

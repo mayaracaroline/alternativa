@@ -20,7 +20,7 @@
 				<div class="form-group">
 					 <c:forEach var="mensagem" items="${requestScope.sucesso}">
 					   <div class="alert alert-success" role="alert">
-						  ${mensagem}
+						  ${mensagem}                          
 					   </div>											
 					 </c:forEach>
 				</div>			

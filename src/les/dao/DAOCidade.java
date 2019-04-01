@@ -98,7 +98,7 @@ public class DAOCidade extends AbstractDAO implements IDAO {
 
     }
     
-    if (cidades.isEmpty()) {
+    if (contagem == 1) {
       resultado.setResultado(cid);      
     } else {
       resultado.setListaResultado(cidades);

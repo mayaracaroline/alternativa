@@ -4,8 +4,12 @@ import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import dominio.Cidade;
 import dominio.Endereco;
 import dominio.EntidadeDominio;
+import dominio.Pais;
+import dominio.TipoLogradouro;
+import dominio.TipoResidencia;
 import util.Resultado;
 
 public class DAOEndereco extends AbstractDAO implements IDAO {
@@ -60,7 +64,56 @@ public class DAOEndereco extends AbstractDAO implements IDAO {
     Endereco endereco = (Endereco) entidade;
     Resultado resultado = new Resultado();
     
-    String sql = "SELECT cid_nome FROM cidade WHERE cid_id = ?";
+    String sql = "SELECT * FROM enderecos WHERE end_id = ? AND end_status = true";
+    
+    try {
+      PreparedStatement pst = conexao.prepareStatement(sql);
+      pst.setInt(1, endereco.getId().intValue());
+      
+      ResultSet rs = pst.executeQuery();
+      
+      while(rs.next()) {
+        endereco.setBairro(rs.getString("end_bairro"));
+        endereco.setCep(rs.getString("end_cep"));
+        
+        Cidade cidade = new Cidade();
+        cidade.setId(rs.getInt("end_cid_id"));
+        DAOCidade daoCidade = new DAOCidade();
+        
+        cidade = (Cidade) daoCidade.consultar(cidade).getResultado();
+        
+        endereco.setCidade(cidade);
+        
+        endereco.setDescricao(rs.getString("end_descricao"));
+        endereco.setEstado(cidade.getEstado());
+        endereco.setLogradouro(rs.getString("end_logradouro"));
+        endereco.setNumero(93); //acrescentar campo número
+        endereco.setObservacao(rs.getString("end_observacao"));
+        
+        Pais pais = new Pais();
+        pais.setId(1); // Refatorar: associar endereco ao estado
+        
+        DAOPais daoPais = new DAOPais();
+        
+        pais = (Pais) daoPais.consultar(pais).getResultado();
+        
+        endereco.setPais(pais);
+        endereco.setTipoEndereco(rs.getString("end_tipo"));
+        TipoLogradouro tipoLogradouro = new TipoLogradouro(); //Criar DAO para tipo logradouro
+        tipoLogradouro.setId(1);
+        tipoLogradouro.setTipo("RUA");
+        endereco.setTipoLogradouro(tipoLogradouro);
+        endereco.setTipoResidencia(TipoResidencia.valueOf(rs.getString("end_tipo_residencia")));
+
+      }
+      
+      resultado.setResultado(endereco);
+      resultado.sucesso("Consulta realizada com sucesso");
+      
+    } catch (Exception e) {
+      resultado.erro("Erro ao consultar endereço");
+      e.printStackTrace();
+    }
     
     return resultado;
   }

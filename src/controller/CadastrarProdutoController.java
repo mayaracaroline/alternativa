@@ -25,7 +25,7 @@ import viewhelper.VHCliente;
 /**
  * Servlet implementation class CadastrarProdutoController
  */
-@WebServlet({ "/CadastrarProduto", "/cadastro", "/ConsultaProduto", "/ExcluiProduto", "/AlterarProduto", "/InativaProduto","/CadastraCliente"})
+@WebServlet({ "/CadastrarProduto", "/cadastro", "/ConsultaProduto", "/ExcluiProduto", "/AlterarProduto", "/InativaProduto","/CadastraCliente", "/ConsultaCliente"})
 public class CadastrarProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, IViewHelper> mapViewHelper;
@@ -44,6 +44,7 @@ public class CadastrarProdutoController extends HttpServlet {
     	mapViewHelper.put("/livraria/AlterarProduto", new VHCadastrarProduto());
     	mapViewHelper.put("/livraria/InativaProduto", new VHCadastrarProduto());
     	mapViewHelper.put("/livraria/CadastraCliente", new VHCliente());
+    	mapViewHelper.put("/livraria/ConsultaCliente", new VHCliente());
     	
     	mapCommand = new HashMap<String, ICommand>();
     	mapCommand.put("SALVAR", new CommandSalvar());

@@ -38,6 +38,7 @@ public class Fachada implements IFachada  {
 	private List<IStrategy> listStrategyInativarProduto;
 	
 	private List<IStrategy> listStrategySalvarCliente;
+	private List<IStrategy> listStrategyConsultarCliente;
 	
 	public Fachada() {
 	  rns = new HashMap<String, Map<String, List<IStrategy>>>();
@@ -73,6 +74,8 @@ public class Fachada implements IFachada  {
 		listStrategyInativarProduto.add(new StValidarMotivoCategoriaInativacao());
 		
 		listStrategySalvarCliente = new ArrayList<IStrategy>();
+		listStrategyConsultarCliente = new ArrayList<IStrategy>();
+		
 		listStrategySalvarCliente.add(new StComplementarCidade());
 		
 		rnsProduto.put("SALVAR", listStrategySalvarProduto);
@@ -82,6 +85,7 @@ public class Fachada implements IFachada  {
 		rnsProduto.put("INATIVAR", listStrategyInativarProduto);
 		
 		rnsCliente.put("SALVAR", listStrategySalvarCliente);
+		rnsCliente.put("CONSULTAR", listStrategyConsultarCliente);
 		
     rns.put(Livro.class.getSimpleName().toUpperCase(), rnsProduto);
     rns.put(Cliente.class.getSimpleName().toUpperCase(), rnsCliente);

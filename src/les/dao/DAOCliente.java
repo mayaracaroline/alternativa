@@ -4,11 +4,18 @@ import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import dominio.Cartao;
 import dominio.Cliente;
 import dominio.Endereco;
 import dominio.EntidadeDominio;
+import dominio.Genero;
+import dominio.Telefone;
+import dominio.TipoTelefone;
+import dominio.Usuario;
 import util.Resultado;
 
 public class DAOCliente extends AbstractDAO implements IDAO {
@@ -105,6 +112,50 @@ public class DAOCliente extends AbstractDAO implements IDAO {
       PreparedStatement pst = conexao.prepareStatement(sql);
       pst.setInt(1, cliente.getId().intValue());
       
+      ResultSet rs = pst.executeQuery();
+      
+      while(rs.next()) {
+        cliente.setId(rs.getInt(1));
+        cliente.setCpf(rs.getString("cli_cpf"));
+        cliente.setGenero(Genero.valueOf(rs.getString("cli_genero")));
+        cliente.setDataNascimento(LocalDate.parse(rs.getDate("cli_data_nascimento").toString()));
+        cliente.setNome(rs.getString("cli_nome"));
+        cliente.setSobrenome(rs.getString("cli_sobrenome"));
+        Telefone telefone = new Telefone();
+        telefone.setDdd(rs.getString("cli_ddd"));
+        telefone.setNumero(rs.getString("cli_telefone"));
+        telefone.setTipo(TipoTelefone.valueOf(rs.getString("cli_tipo_telefone")));
+        cliente.setTelefone(telefone);
+        
+        Usuario usuario = new Usuario();
+        usuario.setUsername(rs.getString("cli_email"));
+        usuario.setPassword(rs.getString("cli_senha"));
+        cliente.setUsuario(usuario);
+        
+      }
+      
+      DAOClientes_Endereco daoCliEnd = new DAOClientes_Endereco();
+      Resultado rsEndCli = daoCliEnd.consultar(cliente);
+      
+      List<Endereco> enderecos = new ArrayList<>();      
+      
+      for(EntidadeDominio end : rsEndCli.getListaResultado()) {
+        enderecos.add((Endereco) end);
+      };
+      
+      DAOEndereco daoEndereco = new DAOEndereco();
+      Resultado rsEnderecoResidencial = daoEndereco.consultar(enderecos.get(0));
+      
+      Resultado rsEnderecoEntrega = daoEndereco.consultar(enderecos.get(1));
+      
+      Resultado rsEnderecoCobranca = daoEndereco.consultar(enderecos.get(2));      
+      
+      cliente.setEnderecoResidencial((Endereco)rsEnderecoResidencial.getResultado());
+      cliente.setEnderecoEntrega((Endereco)rsEnderecoEntrega.getResultado());
+      cliente.setEnderecoCobranca((Endereco)rsEnderecoCobranca.getResultado());
+     
+      resultado.sucesso("Consulta realizada com sucesso");
+      resultado.setResultado(cliente);
     } catch (Exception e) {
       resultado.erro("Erro ao consultar cliente");
       e.printStackTrace();

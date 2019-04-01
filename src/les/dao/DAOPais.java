@@ -64,9 +64,8 @@ public class DAOPais extends AbstractDAO implements IDAO {
         
         while(rs.next()) {
           
-          pais2.setId(rs.getInt("pais_id"));
+          pais2.setId(rs.getInt("pai_id"));
           pais2.setNome(rs.getString("pai_pais"));
-          
           contagem++;
           
         }

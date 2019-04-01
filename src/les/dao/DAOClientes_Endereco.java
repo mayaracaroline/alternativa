@@ -1,8 +1,12 @@
 package les.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import dominio.Cliente;
+import dominio.Endereco;
 import dominio.EntidadeDominio;
 import util.Resultado;
 
@@ -55,8 +59,35 @@ public class DAOClientes_Endereco extends AbstractDAO implements IDAO {
 
   @Override
   public Resultado consultar(EntidadeDominio entidade) {
-    // TODO Auto-generated method stub
-    return null;
+    Cliente cliente = (Cliente) entidade;
+    Resultado resultado = new Resultado();
+    
+    String sql = "SELECT * from clientes_endereco WHERE cle_cli_id = ? ";
+    
+    try {
+      
+      PreparedStatement pst = conexao.prepareStatement(sql);
+      pst.setInt(1, cliente.getId().intValue());
+      
+      ResultSet rs = pst.executeQuery();
+      List<EntidadeDominio> enderecos = new ArrayList<>();
+      while(rs.next()) {
+        Endereco endereco = new Endereco();
+        
+        endereco.setId(rs.getInt("cle_end_id"));        
+        enderecos.add(endereco); 
+        
+      }
+      
+      resultado.setListaResultado(enderecos);
+      resultado.sucesso("Consulta realizada com sucesso: clientes_endereco");
+      
+    } catch (Exception e) {
+      resultado.erro("Erro ao consultar: clientes_endereco");
+      e.printStackTrace();
+    }
+    
+    return resultado;
   }
 
   @Override
