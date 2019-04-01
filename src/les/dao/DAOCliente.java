@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import dominio.Cartao;
 import dominio.Cliente;
 import dominio.Endereco;
 import dominio.EntidadeDominio;
@@ -72,6 +73,15 @@ public class DAOCliente extends AbstractDAO implements IDAO {
       DAOClientes_Endereco daoCliEndereco = new DAOClientes_Endereco();
       
       daoCliEndereco.salvar(cliente);
+      
+      DAOCartao daoCartao = new DAOCartao();
+      Resultado rsCartao = daoCartao.salvar(cliente.getCartao());
+      Cartao cartao = (Cartao) rsCartao.getResultado();
+      cliente.setCartao(cartao);
+      
+      DAOCartoesCliente daoCartoesCli = new DAOCartoesCliente();
+      
+      daoCartoesCli.salvar(cliente);      
             
       resultado.sucesso("Cliente salvo com sucesso");
       
@@ -86,8 +96,21 @@ public class DAOCliente extends AbstractDAO implements IDAO {
 
   @Override
   public Resultado consultar(EntidadeDominio entidade) {
-    // TODO Auto-generated method stub
-    return null;
+    Resultado resultado = new Resultado();
+    Cliente cliente = (Cliente) entidade;
+    
+    String sql = "SELECT * FROM clientes WHERE cli_id = ? ";
+    
+    try {
+      PreparedStatement pst = conexao.prepareStatement(sql);
+      pst.setInt(1, cliente.getId().intValue());
+      
+    } catch (Exception e) {
+      resultado.erro("Erro ao consultar cliente");
+      e.printStackTrace();
+    }
+    
+    return resultado;
   }
 
   @Override

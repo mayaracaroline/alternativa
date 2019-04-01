@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +17,7 @@ import dominio.Endereco;
 import dominio.EntidadeDominio;
 import dominio.Estado;
 import dominio.Genero;
+import dominio.Livro;
 import dominio.Pais;
 import dominio.Telefone;
 import dominio.TipoLogradouro;
@@ -31,6 +33,11 @@ public class VHCliente implements IViewHelper {
   public EntidadeDominio getEntidade(HttpServletRequest request) {
     Cliente cliente = new Cliente();
     List<Endereco> enderecos = new ArrayList<Endereco>();
+    
+    int codigo = null != request.getParameter("codigo") 
+        && !"".equals(request.getParameter("codigo"))
+        && Numero.isNumeric(request.getParameter("codigo").trim()) 
+        ?  Integer.parseInt(request.getParameter("codigo")) : 0;
     
     String nome = null != request.getParameter("nome") && 
         !"".equals(request.getParameter("nome"))
@@ -151,7 +158,17 @@ public class VHCliente implements IViewHelper {
     if(isCobranca && isEntrega) {
         
       for (int i = 0; i < 3; i++) {
-        enderecos.add(endereco);
+        Endereco end1 = new Endereco();
+        end1.setBairro(bairro);
+        end1.setCep(cep);
+        end1.setCidade(cidade);
+        end1.setLogradouro(logradouro);
+        end1.setNumero(numero);
+        end1.setObservacao(observacoes);
+        end1.setPais(pais);
+        end1.setTipoLogradouro(tipoLogradouro);
+        end1.setTipoResidencia(TipoResidencia.valueOf(tipoResidencia)); 
+        enderecos.add(end1);
       }      
     } else if (!isCobranca && isEntrega) {
     
@@ -309,7 +326,6 @@ public class VHCliente implements IViewHelper {
       
       for (int i = 1; i < 3; i++) {
 
-        Endereco end = new Endereco();
         tipoResidencia = null != request.getParameter("tipo-residencia"+i) 
             && !"".equals(request.getParameter("tipo-residencia"+i))
             ?  request.getParameter("tipo-residencia"+i) : "";
@@ -367,6 +383,7 @@ public class VHCliente implements IViewHelper {
             tipoLogradouro = new TipoLogradouro();
             tipoLogradouro.setId(idTipoLogradouro);              
             
+            Endereco end = new Endereco();
             end.setBairro(bairro);
             end.setCep(cep);
             end.setCidade(cidade);
@@ -447,13 +464,74 @@ public class VHCliente implements IViewHelper {
     cliente.setDataCadastro(dataCadastro);
     
     return cliente;
-  }
-  
-  
+  }  
 
   @Override
   public void setView(Resultado resultado, HttpServletRequest request, HttpServletResponse response) {
-    // TODO Auto-generated method stub
+    String operacao = request.getParameter("operacao");
+    String mensagem[] = resultado.getMensagem().split("\n");
+    
+    if(resultado.getErro())
+      request.setAttribute("erro", mensagem);
+    else
+      request.setAttribute("sucesso", mensagem);
+    
+    if(operacao.equals("SALVAR")){
+      if(resultado.getErro()){
+        request.setAttribute("cliente", (Cliente) resultado.getListaResultado().get(0));
+      }
+    } else if(operacao.equals("CONSULTAR")){
+      if(!resultado.getErro()){
+        if(resultado.getResultado() != null){
+          request.setAttribute("cliente", (Cliente) resultado.getResultado());
+        }else{
+          request.setAttribute("resultado",  resultado.getListaResultado());
+        }
+      } else if(operacao.equals("EXCLUIR")){
+        if(resultado.getErro()){
+          request.setAttribute("resultado", (Cliente) resultado.getResultado());
+        } 
+      } else if(operacao.equals("INATIVAR")){
+        if(resultado.getErro()){
+          request.setAttribute("resultado", (Cliente) resultado.getResultado());
+        } 
+      }
+    }
+    try {
+      if(operacao.equals("SALVAR")){
+        request.setAttribute("cliente", (Cliente) resultado.getResultado());
+        RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/visualizar.jsp");
+        rd.forward(request, response);
+      }
+      else if(operacao.equals("CONSULTAR")){
+        if(resultado.getResultado() != null){         
+//          RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/cadastraProduto.jsp");
+          RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
+          rd.forward(request, response);
+        } else if(resultado.getListaResultado() != null){
+          RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
+          rd.forward(request, response);
+        } else {
+          RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
+          rd.forward(request, response);
+        }
+      } else if(operacao.equals("EXCLUIR")){
+        request.setAttribute("cliente", (Cliente) resultado.getResultado());
+        RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/produtoExcluido.jsp");
+        rd.forward(request, response);
+      } else if(operacao.equals("ALTERAR")){
+        request.setAttribute("cliente", (Cliente) resultado.getResultado());
+        RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/produtoAlterado.jsp");
+        rd.forward(request, response);
+      } else if(operacao.equals("INATIVAR")){
+        request.setAttribute("cliente", (Cliente) resultado.getResultado());
+        RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/produtoAlterado.jsp");
+        rd.forward(request, response);
+      }
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     
   }
 
