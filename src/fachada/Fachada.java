@@ -5,8 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sound.midi.Soundbank;
+
+import dominio.Cliente;
 import dominio.EntidadeDominio;
 import dominio.Livro;
+import les.dao.DAOCliente;
 import les.dao.DAOLivro;
 import les.dao.IDAO;
 import les.negocio.IStrategy;
@@ -22,6 +26,7 @@ import util.Resultado;
 public class Fachada implements IFachada  {
 	
 	private Map<String, List<IStrategy>> rnsProduto;
+	private Map<String, List<IStrategy>> rnsCliente;
 	private Map<String, IDAO> mapDAO;
 	private Map<String, Map<String, List<IStrategy>>> rns;
 	
@@ -31,12 +36,16 @@ public class Fachada implements IFachada  {
 	private List<IStrategy> listStrategyAlterarProduto;
 	private List<IStrategy> listStrategyInativarProduto;
 	
+	private List<IStrategy> listStrategySalvarCliente;
+	
 	public Fachada() {
 	  rns = new HashMap<String, Map<String, List<IStrategy>>>();
 		rnsProduto = new HashMap<String, List<IStrategy>>();
+		rnsCliente = new HashMap<String, List<IStrategy>>();
 		mapDAO = new HashMap<String, IDAO>();
 		
 		mapDAO.put("LIVRO", new DAOLivro());
+		mapDAO.put("CLIENTE", new DAOCliente());
 
 		listStrategySalvarProduto = new ArrayList<IStrategy>();
 		listStrategyConsultarProduto = new ArrayList<IStrategy>();
@@ -62,18 +71,22 @@ public class Fachada implements IFachada  {
 		listStrategyInativarProduto.add(new StValidarLivroExclusaoEAlteracao());
 		listStrategyInativarProduto.add(new StValidarMotivoCategoriaInativacao());
 		
+		listStrategySalvarCliente = new ArrayList<IStrategy>();
+		
 		rnsProduto.put("SALVAR", listStrategySalvarProduto);
 		rnsProduto.put("CONSULTAR", listStrategyConsultarProduto);
 		rnsProduto.put("EXCLUIR", listStrategyExcluirProduto);
 		rnsProduto.put("ALTERAR", listStrategyAlterarProduto);
 		rnsProduto.put("INATIVAR", listStrategyInativarProduto);
 		
+		rnsCliente.put("SALVAR", listStrategySalvarCliente);
+		
     rns.put(Livro.class.getSimpleName().toUpperCase(), rnsProduto);
+    rns.put(Cliente.class.getSimpleName().toUpperCase(), rnsCliente);
 				
 	}
 	
 	public Resultado validarStrategys(EntidadeDominio entidade, String operacao) {
-		
 		Resultado resultado = new Resultado();
 		String mensagem = "";
 		String mensagens = "";
@@ -169,5 +182,6 @@ public class Fachada implements IFachada  {
 		}
 		
 		return resultado;
-	}
+	}	
+	
 }

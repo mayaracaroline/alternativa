@@ -35,6 +35,11 @@ public class VHCliente implements IViewHelper {
     String nome = null != request.getParameter("nome") && 
         !"".equals(request.getParameter("nome"))
         ? request.getParameter("nome") : "" ;
+        
+    String sobrenome = null != request.getParameter("sobrenome") && 
+        !"".equals(request.getParameter("sobrenome"))
+        ? request.getParameter("sobrenome") : "" ;        
+        
     String strDataNasc = null != request.getParameter("data-nasc") && 
         !"".equals(request.getParameter("data-nasc")) 
         ? request.getParameter("data-nasc") : "";
@@ -63,6 +68,9 @@ public class VHCliente implements IViewHelper {
         && !"".equals(request.getParameter("telefone")) 
         ? request.getParameter("telefone") : "";
         
+    LocalDate agora = LocalDate.now();
+    LocalDate dataCadastro = LocalDate.of(agora.getYear(), agora.getMonthValue(), agora.getDayOfMonth());
+       
     telefone.setDdd(ddd);
     telefone.setNumero(numeroTelefone);
     telefone.setTipo(TipoTelefone.valueOf(tipoTelefone));
@@ -378,6 +386,14 @@ public class VHCliente implements IViewHelper {
   
     }
     
+    enderecos.get(0).setTipoEndereco("RESIDENCIAL");
+    enderecos.get(1).setTipoEndereco("ENTREGA");
+    enderecos.get(2).setTipoEndereco("COBRANÇA");
+    
+    enderecos.get(0).setDescricao("ENDEREÇO RESIDENCIAL");
+    enderecos.get(1).setDescricao("ENDEREÇO ENTREGA");
+    enderecos.get(2).setDescricao("ENDEREÇO COBRANÇA");
+    
     Usuario usuario = new Usuario(); 
     
     String username = null != request.getParameter("email")
@@ -428,8 +444,10 @@ public class VHCliente implements IViewHelper {
     cliente.setCpf(cpf);
     cliente.setDataNascimento(dataNasc);
     cliente.setNome(nome);
+    cliente.setSobrenome(sobrenome);
     cliente.setUsuario(usuario);
     cliente.setTelefone(telefone);
+    cliente.setDataCadastro(dataCadastro);
     
     return cliente;
   }

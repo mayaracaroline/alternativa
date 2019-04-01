@@ -1,7 +1,6 @@
 package dominio;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 public class Cliente extends PessoaFisica {
   
@@ -11,6 +10,7 @@ public class Cliente extends PessoaFisica {
   private Endereco enderecoCobranca;
   private Usuario usuario; 
   private Cartao cartao;
+  private LocalDate dataCadastro;
   
   public Telefone getTelefone() {
     return telefone;
@@ -47,6 +47,12 @@ public class Cliente extends PessoaFisica {
   }
   public void setCartao(Cartao cartao) {
     this.cartao = cartao;
+  }
+  public LocalDate getDataCadastro() {
+    return dataCadastro;
+  }
+  public void setDataCadastro(LocalDate dataCadastro) {
+    this.dataCadastro = dataCadastro;
   }
 
 }

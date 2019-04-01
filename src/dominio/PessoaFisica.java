@@ -7,6 +7,7 @@ public class PessoaFisica extends Pessoa {
 	protected String cpf;
 	protected Genero genero;
 	protected LocalDate dataNascimento ;
+	protected String sobrenome;
 	
   public String getCpf() {
     return cpf;
@@ -25,6 +26,12 @@ public class PessoaFisica extends Pessoa {
   }
   public void setDataNascimento(LocalDate dataNascimento) {
     this.dataNascimento = dataNascimento;
+  }
+  public String getSobrenome() {
+    return sobrenome;
+  }
+  public void setSobrenome(String sobrenome) {
+    this.sobrenome = sobrenome;
   }
 
 }

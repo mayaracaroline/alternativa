@@ -12,6 +12,7 @@ public class Endereco extends EntidadeDominio {
   private String observacao;  
   private TipoResidencia tipoResidencia;
   private Pais pais;
+  private String tipoEndereco;
   
   public TipoLogradouro getTipoLogradouro() {
     return tipoLogradouro;
@@ -79,6 +80,11 @@ public class Endereco extends EntidadeDominio {
   public void setPais(Pais pais) {
     this.pais = pais;
   }
-
+  public String getTipoEndereco() {
+    return tipoEndereco;
+  }
+  public void setTipoEndereco(String tipoEndereco) {
+    this.tipoEndereco = tipoEndereco;
+  }
 
 }

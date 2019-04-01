@@ -34,7 +34,9 @@
                               <div class="panel-body">
                                 <div class="form-group">
                                   <label>Nome:</label>
-                                  <input name="nome" class="form-control" >                 
+                                  <input name="nome" class="form-control" >
+                                  <label>Sobrenome:</label>
+                                  <input name="sobrenome" class="form-control" >                    
                                   <label>Data de Nascimento:</label>
                                   <input name="data-nasc" type="date" class="form-control">
                                   <label>Gênero:</label>
@@ -305,7 +307,7 @@
                              </div> <!-- Panel - Cartão -->                   						            
 							
 							   <button type="reset"  class="btn btn-default">Cancelar</button>
-							   <button type="submit" class="btn btn-primary" value="SALVAR">Salvar</button>
+							   <button type="submit" class="btn btn-primary" name="operacao" value="SALVAR">Salvar</button>
 							
 							</form>
 						</div>
