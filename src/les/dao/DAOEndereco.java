@@ -3,6 +3,7 @@ package les.dao;
 import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import dominio.Cidade;
 import dominio.Endereco;
@@ -99,6 +100,7 @@ public class DAOEndereco extends AbstractDAO implements IDAO {
         
         endereco.setPais(pais);
         endereco.setTipoEndereco(rs.getString("end_tipo"));
+        
         TipoLogradouro tipoLogradouro = new TipoLogradouro(); //Criar DAO para tipo logradouro
         tipoLogradouro.setId(1);
         tipoLogradouro.setTipo("RUA");

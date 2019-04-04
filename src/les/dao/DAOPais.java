@@ -3,6 +3,7 @@ package les.dao;
 import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,13 @@ public class DAOPais extends AbstractDAO implements IDAO {
       } catch (Exception e) {
         resultado.erro("Erro ao realizar consulta de Cidades");
         e.printStackTrace();
+      } finally {      
+        try {
+          conexao.close();
+        } catch (SQLException e) {
+          // LOGGING
+          e.printStackTrace();
+        }
       }
       
     } else {

@@ -2,6 +2,7 @@ package les.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +75,14 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 			e.printStackTrace();
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
-		}
+		} finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
+    }
 	
 	}
 
@@ -203,8 +211,7 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultado.erro("Erro ao alterar registro");
-		}
-		
+		}		
 		
 		return resultado;
 	}
@@ -229,8 +236,7 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultado.erro("Erro ao excluir o registro");
-		}
-		
+		}		
 		
 		return resultado;
 	}
@@ -256,7 +262,14 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultado.erro("Erro ao inativar o registro");
-		}
+		} finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
+    }
 		
 		
 		return resultado;

@@ -27,7 +27,7 @@
                         </div>
                       </div>
 						
-						<form role="form" action="/livraria/CadastraCliente" method="POST">
+						<form role="form" action="/livraria/Pages/lumino/CadastraCliente" method="POST">
             
                             <div class="panel panel-info">
                               <div class="panel-heading">Dados Pessoais</div>
@@ -41,6 +41,7 @@
                                   <input name="data-nasc" type="date" class="form-control">
                                   <label>Gênero:</label>
                                   <select name="genero" class="form-control">
+                                    <option value="">Selecione</option>
                                     <option value="FEMININO">Feminino</option>
                                     <option value="MASCULINO">Masculino</option>
                                     <option value="INDEFINIDO">Não desejo informar</option>
@@ -57,6 +58,7 @@
                                   <label>Telefone</label><br>
                                   <label>Tipo:</label>
                                   <select name="tipo-telefone" class="form-control">
+                                    <option value="">Selecione</option>
                                     <option value="RESIDENCIAL">Residencial</option>
                                     <option value="COMERCIAL">Comercial</option>
                                     <option value="CELULAR">Celular</option>
@@ -84,60 +86,54 @@
                                 <div class="form-group">
                                    <label>Tipo de residência: *</label>
                                     <select name="tipo-residencia0" class="form-control"  >
-                                      <option>Selecionar</option>
-                                      <option selected value="CASA">Casa</option>
+                                      <option value="">Selecione</option>
+                                      <option value="CASA">Casa</option>
                                       <option value="APARTAMENTO">Apartamento</option>
                                       <option value="CONDOMINIO">Condomínio</option>
                                       <option value="SITIO">Sítio</option>
                                       <option value="CHACARA">Chacára</option>                                     
                                     </select>
-                                    <label>Tipo do logradouro: *</label>
-                                    <select name="tipo-logradouro0" class="form-control" >
-                                      <option>Selecionar</option>
-                                      <option value="4">Alameda</option>
-                                      <option value="2">Avenida</option>
-                                      <option value="3">Rodovia</option>
-                                      <option value="1" selected>Rua</option>
-                                    </select>
+                                    
+                                  <label for="cep0">
+                                    CEP: *
+                                    <input name="cep0" id="cep0" class="form-control" onchange="complementarEndereco()" type="text" value="">
+                                  </label><br>
+                                  <label>Tipo do logradouro: *</label> <br>
+                                  <label>
+                                  <select name="tipo-logradouro0" class="form-control" >
+                                    <option value="">Selecione</option>
+                                    <option value="1">Rua</option>
+                                    <option value="2">Avenida</option>
+                                    <option value="3">Estrada</option>                                      
+                                    <option value="1">Rua</option>
+                                  </select>
+                                  </label><br>
                                   <label for="logradouro0">
                                     Logradouro: *
-                                    <input name="logradouro0" class="form-control" type="text" value="Av. Carlos Barattino" >
-                                  </label>
-                                  <label for="numero0">
-                                    Nº: *
-                                    <input name="numero0" class="form-control" type="text" value="98" size="2">
-                                  </label>
+                                    <input name="logradouro0" id="logradouro0" class="form-control" type="text" readonly="readonly">
+                                  </label><br>
                                   <label for="bairro0">
                                       Bairro: *
-                                      <input name="bairro0" class="form-control" type="text" value="Vila Nova Mogilar" >
-                                  </label>
-                                  <label>
-                                   CEP: *
-                                    <input name="cep0" class="form-control" type="text" value="08673250">
-                                  </label>
+                                      <input name="bairro0" id="bairro0" class="form-control" type="text" value="" readonly="readonly">
+                                  </label> <br>
+                                  <label for="cidade0">
+                                      Cidade: *
+                                      <input name="cidade0" id="cidade0" class="form-control" type="text" value="" readonly="readonly" >
+                                  </label><br>
+                                  <label for="estado0">
+                                      UF: *
+                                      <input name="estado0" id="estado0" class="form-control" type="text" value="" readonly="readonly">
+                                  </label><br>
+                                  <label for="numero0">
+                                    Nº: *
+                                    <input name="numero0" id="numero0" class="form-control" type="text" value="" size="2">
+                                  </label> <br>
+                                   <br>
                                   <label>País: *</label>
                                   <select name="pais0" class="form-control" >
-                                    <option value="1" selected>Brasil</option>
-                                    <option value="2">Bangladesh</option>
-                                    <option value="3">UK</option>
-                                    <option value="4">India</option>
+                                    <option value="1" selected disabled>Brasil</option>
                                   </select>   
-                                  <label>UF: *</label>
-                                  <select name="estado0" class="form-control" >
-                                    <option value="1" selected>Afonso Cláudio</option>
-                                    <option value="2">Rio de Janeiro</option>
-                                    <option value="3">Rio Grande do Sul</option>
-                                    <option value="4">Santa Catarina</option>
-                                    <option value="5">Espirito Santo</option>
-                                  </select>
-                                    <label>Cidade: *</label>
-                                    <select name="cidade0" class="form-control" >
-                                      <option selected value="1">São Paulo</option>
-                                      <option value="2">Rio de Janeiro</option>
-                                      <option value="3">Porto Alegre</option>
-                                      <option value="4">Florianópolis</option>
-                                      <option value="5">Vitória</option>
-                                    </select>                                  
+                                          
                                   <label>Observações:</label>
                                   <input class="form-control" type="text" name="observacoes0" placeholder="Ex: Ap. 25, Fundos etc." >
                                   <div class="checkbox">
@@ -158,44 +154,45 @@
                                   <div class="form-group">
                                      <label>Tipo de residência: *</label>
                                       <select name="tipo-residencia1" class="form-control"  >
-                                        <option value="">Selecionar</option>
-                                        <option value="CASA" selected>Casa</option>
+                                        <option value="">Selecione</option>
+                                        <option value="CASA">Casa</option>
                                         <option value="APARTAMENTO">Apartamento</option>
                                       </select>
                                       <label>Tipo do logradouro: *</label>
                                       <select name="tipo-logradouro1" class="form-control" >
-                                        <option value="0">Selecionar</option>
-                                        <option value="4">Alameda</option>
-                                        <option value="2">Avenida</option>
-                                        <option value="3">Rodovia</option>
-                                        <option value="1" selected>Rua</option>
+                                      <option value="">Selecione</option>
+                                      <option value="1">Rua</option>
+                                      <option value="2">Avenida</option>
+                                      <option value="3">Estrada</option> 
                                       </select>
                                     <label for="logradouro1">
                                       Logradouro: *
-                                      <input name="logradouro1" class="form-control" type="text"  value="Av. Carlos Barattino" >
+                                      <input name="logradouro1" class="form-control" type="text"  value="" >
                                     </label>
                                     <label for="numero1">
                                       Nº: *
-                                      <input name="numero1" class="form-control" type="text"  value="98" size="2">
+                                      <input name="numero1" class="form-control" type="text"  value="" size="2">
                                     </label>
                                     <label for="bairro1">
                                         Bairro: *
-                                        <input name="bairro1" class="form-control" type="text" value="Vila Nova Mogilar" >
+                                        <input name="bairro1" class="form-control" type="text" value="" >
                                     </label><br>
                                     <label>
                                       CEP: *
-                                      <input name="cep1" class="form-control" type="text" value="08673250">
-                                    </label>
+                                      <input name="cep1" class="form-control" type="text" value="">
+                                    </label> <br>
                                     <label>País: *</label>
                                     <select name="pais1" class="form-control" >
-                                      <option value="1" selected>Brasil</option>
+                                      <option value="">Selecione</option>
+                                      <option value="1" >Brasil</option>
                                       <option value="2">Bangladesh</option>
                                       <option value="3">UK</option>
                                       <option value="4">India</option>
                                     </select>   
                                     <label>UF: *</label>
                                     <select name="estado1" class="form-control" >
-                                      <option value="1" selected>São Paulo</option>
+                                      <option value="">Selecione</option>
+                                      <option value="1">São Paulo</option>
                                       <option value="2">Rio de Janeiro</option>
                                       <option value="3">Rio Grande do Sul</option>
                                       <option value="4">Santa Catarina</option>
@@ -203,7 +200,8 @@
                                     </select>
                                     <label>Cidade: *</label>
                                     <select name="cidade1" class="form-control" >
-                                      <option  value="1"selected>Afonso Cláudio</option>
+                                      <option value="">Selecione</option>
+                                      <option  value="1">Afonso Cláudio</option>
                                       <option value="2">Rio de Janeiro</option>
                                       <option value="3">Porto Alegre</option>
                                       <option value="4">Florianópolis</option>
@@ -220,44 +218,45 @@
                                   <div class="form-group">
                                      <label>Tipo de residência: *</label>
                                       <select name="tipo-residencia2" class="form-control"  >
-                                        <option>Selecionar</option>
-                                        <option  value="CASA" selected>Casa</option>
-                                        <option value="APARTAMENTO" >Apartamento</option>
+                                        <option value="">Selecione</option>                                  
+                                        <option  value="CASA">Casa</option>
+                                        <option value="APARTAMENTO">Apartamento</option>
                                       </select>
                                       <label>Tipo do logradouro: *</label>
                                       <select name="tipo-logradouro2" class="form-control" >
-                                        <option value="10">Selecionar</option>
-                                        <option value="4">Alameda</option>
-                                        <option value="3">Avenida</option>
-                                        <option value="2">Rodovia</option>
-                                        <option value="1" selected>Rua</option>
+                                      <option value="">Selecione</option>
+                                      <option value="1">Rua</option>
+                                      <option value="2">Avenida</option>
+                                      <option value="3">Estrada</option> 
                                       </select>
                                     <label for="logradouro2">
                                       Logradouro: *
-                                      <input name="logradouro2" class="form-control" type="text"  value="Av. Carlos Barattino" >
+                                      <input name="logradouro2" class="form-control" type="text"  value="" >
                                     </label>
                                     <label for="numero2">
                                       Nº: *
-                                      <input name="numero2" class="form-control" type="text"  value="98" size="2">
+                                      <input name="numero2" class="form-control" type="text"  value="" size="2">
                                     </label>
                                     <label for="bairro2">
                                       Bairro: *
-                                      <input name="bairro2" class="form-control" type="text" value="Vila Nova Mogilar" >
+                                      <input name="bairro2" class="form-control" type="text" value="" >
                                     </label><br>
                                   <label>
                                       CEP: *
-                                      <input name="cep2" class="form-control" type="text" value="08673250">
-                                  </label>                                    
+                                      <input name="cep2" class="form-control" type="text" value="">
+                                  </label><br>                                    
                                     <label>País: *</label>
-                                    <select value="1" name="pais2" class="form-control" >
-                                      <option value="2" selected>Brasil</option>
+                                    <select name="pais2" class="form-control" >
+                                      <option value="">Selecione</option>
+                                      <option value="2">Brasil</option>
                                       <option value="3">Bangladesh</option>
                                       <option value="4">UK</option>
                                       <option value="5">India</option>
                                     </select>   
                                     <label>UF: *</label>
                                     <select name="estado2" class="form-control" >
-                                      <option value="1" selected>São Paulo</option>
+                                      <option value="">Selecione</option>
+                                      <option value="1" >São Paulo</option>
                                       <option value="2">Rio de Janeiro</option>
                                       <option value="3">Rio Grande do Sul</option>
                                       <option value="4">Santa Catarina</option>
@@ -265,7 +264,8 @@
                                     </select>
                                     <label>Cidade: *</label>
                                     <select name="cidade2" class="form-control" >
-                                      <option value="1" selected>Afonso Cláudio</option>
+                                      <option value="">Selecione</option>
+                                      <option value="1">Afonso Cláudio</option>
                                       <option value="2">Rio de Janeiro</option>
                                       <option value="3">Porto Alegre</option>
                                       <option value="4">Florianópolis</option>
@@ -292,8 +292,8 @@
                                   <div class="form-group">
                                      <label>Selecione a bandeira: *
                                        <select name="bandeira" class="form-control"  >
-                                         <option>Selecionar</option>
-                                         <option value="1" selected>Mastercard</option>
+                                         <option value="">Selecione</option>
+                                         <option value="1">Mastercard</option>
                                          <option value="2">Visa</option>
                                        </select>
                                      </label>
@@ -316,6 +316,58 @@
 			</div><!-- /.col-->
 		</div><!-- /.row -->
 	</div><!--/.main-->
+  
+  <script>
+  	let cep = document.getElementById('cep0')
+  	function complementarEndereco() {
+  		if(validaCep(cep.value)) {
+  	  	  	fetch('http://viacep.com.br/ws/'+ cep.value +'/json/')
+  	  	  	.then(response => {
+  	  	  		response.json()
+  	  	  		.then((address) => {
+  	  				meu_callback(address)  	  				
+  	  	  		})
+  	  	  	})	
+  			
+  		} else {
+          //CEP não Encontrado.
+          limpa_formulário_cep();
+          alert("CEP inválido.");
+        }
+
+  	}
+  	
+  	function limpa_formulário_cep() {
+        //Limpa valores do formulário de cep.
+        document.getElementById('cep0').value=""
+		document.getElementById('logradouro0').value= ""
+		document.getElementById('bairro0').value= ""
+		document.getElementById('cidade0').value= ""
+		document.getElementById('estado0').value= ""
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+				document.getElementById('logradouro0').value= conteudo.logradouro
+  				document.getElementById('bairro0').value= conteudo.bairro
+  				document.getElementById('cidade0').value= conteudo.localidade
+  				document.getElementById('estado0').value= conteudo.uf
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+    
+    function validaCep(cep) {
+    	return cep.split('').length === 8;
+    }
+  	
+  	
+
+  </script>
 	
 <script src="../../js/jquery-1.11.1.min.js"></script>
 	<script src="../../js/bootstrap.min.js"></script>

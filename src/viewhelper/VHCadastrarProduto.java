@@ -170,7 +170,7 @@ public class VHCadastrarProduto implements IViewHelper {
 				if(resultado.getResultado() != null){
 					request.setAttribute("livro", (Livro) resultado.getResultado());
 				}else{
-					request.setAttribute("resultado",  resultado.getListaResultado());
+					request.setAttribute("resultado", (Livro) resultado.getListaResultado().get(0));
 				}
 			} else if(operacao.equals("EXCLUIR")){
 				if(resultado.getErro()){
@@ -194,10 +194,10 @@ public class VHCadastrarProduto implements IViewHelper {
           RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
 					rd.forward(request, response);
 				} else if(resultado.getListaResultado() != null){
-					RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/cadastraProduto.jsp");
 					rd.forward(request, response);
 				} else {
-					RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/cadastraProduto.jsp");
 					rd.forward(request, response);
 				}
 			} else if(operacao.equals("EXCLUIR")){

@@ -38,15 +38,15 @@
   </div><!-- /.col-->
   </div><!-- /.row -->
 </div><!--/.main-->
-	
-    <script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/custom.js"></script>
+	="<c:url value="/css/bootstrap.min.css" />"
+    <script src="<c:url value="/js/jquery-1.11.1.min.js" />"></script>
+	<script src="<c:url value="/js/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/js/chart.min.js" />"></script>
+	<script src="<c:url value="/js/chart-data.js" />"></script>
+	<script src="<c:url value="/js/easypiechart.js" />"></script>
+	<script src="<c:url value="/js/easypiechart-data.js" />"></script>
+	<script src="<c:url value="/js/bootstrap-datepicker.js"/>"></script>
+	<script src="<c:url value="/js/custom.js"/>"></script>
 	
 </body>
 </html>

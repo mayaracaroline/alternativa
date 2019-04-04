@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +96,7 @@ public class DAOCliente extends AbstractDAO implements IDAO {
     } catch (Exception e) {
       resultado.erro("Erro ao salvar cliente");
       e.printStackTrace();
-    }
+    } 
     
     resultado.setResultado(cliente);
     return resultado;
@@ -159,6 +160,13 @@ public class DAOCliente extends AbstractDAO implements IDAO {
     } catch (Exception e) {
       resultado.erro("Erro ao consultar cliente");
       e.printStackTrace();
+    }finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
     }
     
     return resultado;

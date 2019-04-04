@@ -3,6 +3,7 @@ package les.dao;
 import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +76,14 @@ public class DAOEstado extends AbstractDAO implements IDAO {
       } catch (Exception e) {
         resultado.erro("Erro ao realizar consulta");
         e.printStackTrace();
-      } 
+      } finally {      
+        try {
+          conexao.close();
+        } catch (SQLException e) {
+          // LOGGING
+          e.printStackTrace();
+        }
+      }
       
       
     }
@@ -90,7 +98,7 @@ public class DAOEstado extends AbstractDAO implements IDAO {
     resultado.sucesso("Consulta realizado com sucesso");
     
     return resultado;
-  }
+  } 
 
   @Override
   public Resultado alterar(EntidadeDominio entidade) {

@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import dominio.EntidadeDominio;
 import dominio.Livro;
 
-public class StValidarDadosObrigatorios implements IStrategy {
+public class StValidarDadosObrigatoriosLivro implements IStrategy {
 	@Override
 	public String processar(EntidadeDominio entidade) {
 		

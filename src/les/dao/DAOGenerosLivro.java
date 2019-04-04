@@ -2,6 +2,7 @@ package les.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,14 @@ public class DAOGenerosLivro extends AbstractDAO implements IDAO{
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultado.erro("Erro ao salvar na tabela generos_livro");
-		}
+		} finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
+    }
 		
 		return resultado;
 	}
@@ -50,7 +58,11 @@ public class DAOGenerosLivro extends AbstractDAO implements IDAO{
 		ArrayList<GeneroLiterario> generos = new ArrayList<>();
 		ResultSet queryResult;
 		
-		String sql = "SELECT * FROM GENEROS_LIVRO WHERE glv_livro_id = ?";
+		String sql = "SELECT * FROM GENEROS_LIVRO WHERE 1=1";
+		
+		if (null != livro.getId()) {
+		  sql += " AND glv_livro_id = ?";
+		}
 			
 		try {
 			
@@ -61,7 +73,7 @@ public class DAOGenerosLivro extends AbstractDAO implements IDAO{
 				
 				while(queryResult.next()) {
 					GeneroLiterario g = new GeneroLiterario();
-										
+					
 					g.setId(queryResult.getInt("glv_genero_id"));
 					g.setDescricao(queryResult.getString("glv_genero_descricao"));
 					
@@ -84,7 +96,14 @@ public class DAOGenerosLivro extends AbstractDAO implements IDAO{
 			resultado.erro("Erro de consulta.");
 			
 			return resultado;
-		}
+		} finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
+    }
 	}
 
 	@Override
@@ -111,9 +130,22 @@ public class DAOGenerosLivro extends AbstractDAO implements IDAO{
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultado.erro("Erro ao excluir registro na tabela generos_livro");
-		}
+		} finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
+    }
 		
 		return resultado;
 	}
+
+  @Override
+  public Resultado inativar(EntidadeDominio entidade) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

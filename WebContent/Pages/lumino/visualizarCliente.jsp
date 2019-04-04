@@ -124,59 +124,42 @@
                                   <div class="form-group">
                                      <label>Tipo de residência: *</label>
                                       <select name="tipo-residencia1" class="form-control"  >
-                                        <option value="">Selecionar</option>
-                                        <option value="CASA" selected>Casa</option>
-                                        <option value="APARTAMENTO">Apartamento</option>
+                                         <option selected >${cliente.enderecoEntrega.tipoResidencia}</option>   
                                       </select>
                                       <label>Tipo do logradouro: *</label>
                                       <select name="tipo-logradouro1" class="form-control" >
-                                        <option value="0">Selecionar</option>
-                                        <option value="4">Alameda</option>
-                                        <option value="2">Avenida</option>
-                                        <option value="3">Rodovia</option>
-                                        <option value="1" selected>Rua</option>
+                                        <option value="0">${cliente.enderecoResidencial.tipoLogradouro.tipo}</option>
                                       </select>
                                     <label for="logradouro1">
                                       Logradouro: *
-                                      <input name="logradouro1" class="form-control" type="text"  value="Av. Carlos Barattino" >
+                                      <input name="logradouro1" class="form-control" type="text"  value="${cliente.enderecoEntrega.logradouro}" >
                                     </label>
                                     <label for="numero1">
                                       Nº: *
-                                      <input name="numero1" class="form-control" type="text"  value="98" size="2">
+                                      <input name="numero1" class="form-control" type="text"  value="${cliente.enderecoEntrega.numero}" size="2">
                                     </label>
                                     <label for="bairro1">
                                         Bairro: *
-                                        <input name="bairro1" class="form-control" type="text" value="Vila Nova Mogilar" >
+                                        <input name="bairro1" class="form-control" type="text" value="${cliente.enderecoEntrega.bairro}" >
                                     </label><br>
                                     <label>
                                       CEP: *
-                                      <input name="cep1" class="form-control" type="text" value="08673250">
+                                      <input name="cep1" class="form-control" type="text" value="${cliente.enderecoEntrega.cep}">
                                     </label>
                                     <label>País: *</label>
                                     <select name="pais1" class="form-control" >
-                                      <option value="1" selected>Brasil</option>
-                                      <option value="2">Bangladesh</option>
-                                      <option value="3">UK</option>
-                                      <option value="4">India</option>
+                                      <option value="1" selected>${cliente.enderecoEntrega.pais.nome}</option>
                                     </select>   
                                     <label>UF: *</label>
                                     <select name="estado1" class="form-control" >
-                                      <option value="1" selected>São Paulo</option>
-                                      <option value="2">Rio de Janeiro</option>
-                                      <option value="3">Rio Grande do Sul</option>
-                                      <option value="4">Santa Catarina</option>
-                                      <option value="5">Espirito Santo</option>
+                                      <option value="1" selected>${cliente.enderecoEntrega.cidade.estado.nome}</option>
                                     </select>
                                     <label>Cidade: *</label>
                                     <select name="cidade1" class="form-control" >
-                                      <option  value="1"selected>São Paulo</option>
-                                      <option value="2">Rio de Janeiro</option>
-                                      <option value="3">Porto Alegre</option>
-                                      <option value="4">Florianópolis</option>
-                                      <option value="5">Vitória</option>
+                                      <option  value="1"selected>${cliente.enderecoEntrega.cidade.nome}</option>
                                     </select>
                                     <label>Observações:</label>
-                                    <input class="form-control" type="text" name="observacoes1" placeholder="Ex: Ap. 25, Fundos etc." >
+                                    <input class="form-control" type="text" name="observacoes1" value="${cliente.enderecoEntrega.observacao}">
                                   </div>
                                 </div> 
                              </div> <!-- Panel - Endereço Entrega -->                              
@@ -186,59 +169,42 @@
                                   <div class="form-group">
                                      <label>Tipo de residência: *</label>
                                       <select name="tipo-residencia2" class="form-control"  >
-                                        <option>Selecionar</option>
-                                        <option  value="CASA" selected>Casa</option>
-                                        <option value="APARTAMENTO" >Apartamento</option>
+                                        <option>${cliente.enderecoCobranca.tipoResidencia}</option>
                                       </select>
                                       <label>Tipo do logradouro: *</label>
                                       <select name="tipo-logradouro2" class="form-control" >
-                                        <option value="10">Selecionar</option>
-                                        <option value="4">Alameda</option>
-                                        <option value="3">Avenida</option>
-                                        <option value="2">Rodovia</option>
-                                        <option value="1" selected>Rua</option>
+                                        <option value="10">${cliente.enderecoCobranca.tipoLogradouro.tipo}</option>
                                       </select>
                                     <label for="logradouro2">
                                       Logradouro: *
-                                      <input name="logradouro2" class="form-control" type="text"  value="Av. Carlos Barattino" >
+                                      <input name="logradouro2" class="form-control" type="text"  value="${cliente.enderecoCobranca.logradouro}" >
                                     </label>
                                     <label for="numero2">
                                       Nº: *
-                                      <input name="numero2" class="form-control" type="text"  value="98" size="2">
+                                      <input name="numero2" class="form-control" type="text"  value="${cliente.enderecoCobranca.numero}" size="2">
                                     </label>
                                     <label for="bairro2">
                                       Bairro: *
-                                      <input name="bairro2" class="form-control" type="text" value="Vila Nova Mogilar" >
+                                      <input name="bairro2" class="form-control" type="text" value="${cliente.enderecoCobranca.bairro}" >
                                     </label><br>
                                   <label>
                                       CEP: *
-                                      <input name="cep2" class="form-control" type="text" value="08673250">
+                                      <input name="cep2" class="form-control" type="text" value="${cliente.enderecoCobranca.cep}">
                                   </label>                                    
                                     <label>País: *</label>
                                     <select value="1" name="pais2" class="form-control" >
-                                      <option value="2" selected>Brasil</option>
-                                      <option value="3">Bangladesh</option>
-                                      <option value="4">UK</option>
-                                      <option value="5">India</option>
+                                      <option value="2" selected>${cliente.enderecoCobranca.pais.nome}</option>
                                     </select>   
                                     <label>UF: *</label>
                                     <select name="estado2" class="form-control" >
-                                      <option value="1" selected>São Paulo</option>
-                                      <option value="2">Rio de Janeiro</option>
-                                      <option value="3">Rio Grande do Sul</option>
-                                      <option value="4">Santa Catarina</option>
-                                      <option value="5">Espirito Santo</option>
+                                      <option value="1" selected>${cliente.enderecoCobranca.cidade.estado.nome}</option>
                                     </select>
                                     <label>Cidade: *</label>
                                     <select name="cidade2" class="form-control" >
-                                      <option value="1" selected>São Paulo</option>
-                                      <option value="2">Rio de Janeiro</option>
-                                      <option value="3">Porto Alegre</option>
-                                      <option value="4">Florianópolis</option>
-                                      <option value="5">Vitória</option>
+                                      <option selected>${cliente.enderecoCobranca.cidade.nome}</option>
                                     </select>                                    
                                     <label>Observações:</label>
-                                    <input class="form-control" type="text" name="observacoes2" placeholder="Ex: Ap. 25, Fundos etc." >
+                                    <input class="form-control" type="text" name="observacoes2" value="${cliente.enderecoCobranca.observacao}" >
                                   </div>
                                 </div> 
                              </div> <!-- Panel - Endereço Cobrança -->   
@@ -246,28 +212,32 @@
                               <div class="panel-heading">Dados do cartão</div>
                                 <div class="panel-body">
                                     <label for="nome-titular">Nome do titular: * </label> <br>
-                                    <input name="nome-titular" class="form-control" type="text"  value="" >
+                                    <input name="nome-titular" class="form-control" type="text"  value="${cliente.cartao.nomeTitular}" >
                                     <label for="numero-cartao">
                                       Número: *
-                                      <input name="numero-cartao" class="form-control" type="text"  value="">
+                                      <input name="numero-cartao" class="form-control" type="text"  value="${cliente.cartao.numero}">
                                     </label> <br>
                                     <label for="cod-seguranca">
                                       Código de Segurança: *
-                                      <input name="cod-seguranca" class="form-control" type="text" value="" >
+                                      <input name="cod-seguranca" class="form-control" type="text" value="${cliente.cartao.codSeguranca}" >
                                     </label><br>                                                                      
                                   <div class="form-group">
                                      <label>Selecione a bandeira: *
                                        <select name="bandeira" class="form-control"  >
-                                         <option>Selecionar</option>
-                                         <option value="1" selected>Mastercard</option>
-                                         <option value="2">Visa</option>
+                                         <option>${cliente.cartao.bandeira.nome}</option>
                                        </select>
                                      </label>
                                   </div>
                                   <div class="checkbox">
                                      <label for="checkbox-endereco-preferencial">
-                                       <input name="checkbox-endereco-preferencial" type="checkbox" value=""> Preferencial                                     </label><br><br>
+                                       <input id="preferencial" name="checkbox-endereco-preferencial" type="checkbox" value=""> Preferencial                                     </label><br><br>
                                      </label>
+                                     <script>
+                                     	const checkbox = document.getElementById("preferencial");
+                                     	if(${cartao.preferencial}) {
+                                     		checkbox.setAttribute('checked', 'checked');
+                                     	}
+                                     </script>
                                   </div>  
                                 </div> 
                              </div> <!-- Panel - Cartão -->                   						            

@@ -3,6 +3,7 @@ package les.dao;
 import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import dominio.Cartao;
 import dominio.EntidadeDominio;
@@ -43,7 +44,14 @@ public class DAOCartao extends AbstractDAO implements IDAO {
     } catch (Exception e) {
       resultado.erro("Erro ao cadastrar cartão");
       e.printStackTrace();
-    }    
+    } finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
+    }   
     
     return resultado;
   }

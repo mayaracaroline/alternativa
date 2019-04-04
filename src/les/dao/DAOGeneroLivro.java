@@ -2,6 +2,7 @@ package les.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,14 @@ public class DAOGeneroLivro extends AbstractDAO implements IDAO {
 			resultado.erro("Erro de consulta.");
 			
 			return resultado;
-		}
+		}  finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
+    }
 	}
 
 	public Resultado salvar(EntidadeDominio entidade) {
@@ -95,7 +103,14 @@ public class DAOGeneroLivro extends AbstractDAO implements IDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultado.erro("Erro ao salvar na tabela generos_livro");
-		}
+		}finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
+    }
 		
 		return resultado;
 	}
@@ -111,6 +126,12 @@ public class DAOGeneroLivro extends AbstractDAO implements IDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+  @Override
+  public Resultado inativar(EntidadeDominio entidade) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 	
 
 }

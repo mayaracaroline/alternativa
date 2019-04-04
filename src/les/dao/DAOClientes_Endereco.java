@@ -2,6 +2,7 @@ package les.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,13 @@ public class DAOClientes_Endereco extends AbstractDAO implements IDAO {
     } catch (Exception e) {
       resultado.erro("Erro salvar: CLIENTES_ENDERECO");
       e.printStackTrace();
+    } finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
     }
         
     return resultado;
@@ -85,6 +93,13 @@ public class DAOClientes_Endereco extends AbstractDAO implements IDAO {
     } catch (Exception e) {
       resultado.erro("Erro ao consultar: clientes_endereco");
       e.printStackTrace();
+    } finally {      
+      try {
+        conexao.close();
+      } catch (SQLException e) {
+        // LOGGING
+        e.printStackTrace();
+      }
     }
     
     return resultado;

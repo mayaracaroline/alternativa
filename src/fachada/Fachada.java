@@ -16,8 +16,11 @@ import les.dao.IDAO;
 import les.negocio.IStrategy;
 import les.negocio.StComplementarCidade;
 import les.negocio.StComplementarGeneroLiterario;
-import les.negocio.StValidarDadosObrigatorios;
+import les.negocio.StValidarDadosObrigatoriosCliente;
+import les.negocio.StValidarDadosObrigatoriosLivro;
+import les.negocio.StValidarEnderecosObrigatorios;
 import les.negocio.StValidarExistencia;
+import les.negocio.StValidarIdConsultaCliente;
 import les.negocio.StValidarIdInserido;
 import les.negocio.StValidarLivroExclusaoEAlteracao;
 import les.negocio.StValidarMotivoAtivacao;
@@ -55,7 +58,7 @@ public class Fachada implements IFachada  {
 		listStrategyAlterarProduto = new ArrayList<IStrategy>();
 		listStrategyInativarProduto = new ArrayList<IStrategy>(); 
 		
-		listStrategySalvarProduto.add(new StValidarDadosObrigatorios());
+		listStrategySalvarProduto.add(new StValidarDadosObrigatoriosLivro());
 		listStrategySalvarProduto.add(new StValidarMotivoAtivacao());
 		listStrategySalvarProduto.add(new StComplementarGeneroLiterario());
 		listStrategySalvarProduto.add(new StValidarExistencia());
@@ -74,9 +77,12 @@ public class Fachada implements IFachada  {
 		listStrategyInativarProduto.add(new StValidarMotivoCategoriaInativacao());
 		
 		listStrategySalvarCliente = new ArrayList<IStrategy>();
-		listStrategyConsultarCliente = new ArrayList<IStrategy>();
-		
 		listStrategySalvarCliente.add(new StComplementarCidade());
+    listStrategySalvarCliente.add(new StValidarDadosObrigatoriosCliente());
+		
+    listStrategyConsultarCliente = new ArrayList<IStrategy>();				
+		listStrategyConsultarCliente.add(new StValidarIdConsultaCliente());
+
 		
 		rnsProduto.put("SALVAR", listStrategySalvarProduto);
 		rnsProduto.put("CONSULTAR", listStrategyConsultarProduto);

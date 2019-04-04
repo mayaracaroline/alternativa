@@ -49,7 +49,7 @@ public class VHCliente implements IViewHelper {
         
     String strDataNasc = null != request.getParameter("data-nasc") && 
         !"".equals(request.getParameter("data-nasc")) 
-        ? request.getParameter("data-nasc") : "1970-01-01";
+        ? request.getParameter("data-nasc") : "1800-01-01";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate dataNasc = LocalDate.parse(strDataNasc,formatter);
              
@@ -148,6 +148,7 @@ public class VHCliente implements IViewHelper {
     endereco.setBairro(bairro);
     endereco.setCep(cep);
     endereco.setCidade(cidade);
+    endereco.setEstado(estado);
     endereco.setLogradouro(logradouro);
     endereco.setNumero(numero);
     endereco.setObservacao(observacoes);
@@ -173,7 +174,18 @@ public class VHCliente implements IViewHelper {
     } else if (!isCobranca && isEntrega) {
     
       for (int i = 0; i < 2; i++ ) {
-        enderecos.add(i,endereco);
+        Endereco end1 = new Endereco();
+        end1.setBairro(bairro);
+        end1.setCep(cep);
+        end1.setCidade(cidade);
+        end1.setLogradouro(logradouro);
+        end1.setNumero(numero);
+        end1.setObservacao(observacoes);
+        end1.setPais(pais);
+        end1.setTipoLogradouro(tipoLogradouro);
+        end1.setTipoResidencia(TipoResidencia.valueOf(tipoResidencia)); 
+        enderecos.add(end1);
+        enderecos.add(i,end1);
       }
        
       Endereco endCobranca = new Endereco();
@@ -237,6 +249,7 @@ public class VHCliente implements IViewHelper {
       endereco.setBairro(bairro);
       endCobranca.setCep(cep);
       endCobranca.setCidade(cidade);
+      endCobranca.setEstado(estado);
       endCobranca.setLogradouro(logradouro);
       endCobranca.setNumero(numero);
       endCobranca.setObservacao(observacoes);
@@ -312,6 +325,7 @@ public class VHCliente implements IViewHelper {
       endereco.setBairro(bairro);
       endEntrega.setCep(cep);
       endEntrega.setCidade(cidade);
+      endEntrega.setEstado(estado);
       endEntrega.setLogradouro(logradouro);
       endEntrega.setNumero(numero);
       endEntrega.setObservacao(observacoes);

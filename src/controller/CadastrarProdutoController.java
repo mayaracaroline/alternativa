@@ -25,7 +25,17 @@ import viewhelper.VHCliente;
 /**
  * Servlet implementation class CadastrarProdutoController
  */
-@WebServlet({ "/CadastrarProduto", "/cadastro", "/ConsultaProduto", "/ExcluiProduto", "/AlterarProduto", "/InativaProduto","/CadastraCliente", "/ConsultaCliente"})
+@WebServlet({ 
+      "/livraria/Pages/lumino/CadastrarProduto", 
+      "/livraria/Pages/lumino/cadastro", 
+      "/livraria/Pages/lumino/ConsultaProduto", 
+      "/livraria/Pages/lumino/ExcluiProduto", 
+      "/livraria/Pages/lumino/AlterarProduto", 
+      "/livraria/Pages/lumino/InativaProduto",
+      "/livraria/Pages/lumino/Pages/lumino/CadastraCliente", 
+      "/livraria/Pages/lumino/ConsultaCliente"
+    })
+
 public class CadastrarProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, IViewHelper> mapViewHelper;
@@ -38,13 +48,13 @@ public class CadastrarProdutoController extends HttpServlet {
     public CadastrarProdutoController() {
     	
     	mapViewHelper = new HashMap<String, IViewHelper>();
-    	mapViewHelper.put("/livraria/CadastrarProduto", new VHCadastrarProduto());
-    	mapViewHelper.put("/livraria/ConsultaProduto", new VHCadastrarProduto());
-    	mapViewHelper.put("/livraria/ExcluiProduto", new VHCadastrarProduto());
-    	mapViewHelper.put("/livraria/AlterarProduto", new VHCadastrarProduto());
-    	mapViewHelper.put("/livraria/InativaProduto", new VHCadastrarProduto());
-    	mapViewHelper.put("/livraria/CadastraCliente", new VHCliente());
-    	mapViewHelper.put("/livraria/ConsultaCliente", new VHCliente());
+    	mapViewHelper.put("/livraria/Pages/lumino/CadastrarProduto", new VHCadastrarProduto());
+    	mapViewHelper.put("/livraria/Pages/lumino/ConsultaProduto", new VHCadastrarProduto());
+    	mapViewHelper.put("/livraria/Pages/lumino/ExcluiProduto", new VHCadastrarProduto());
+    	mapViewHelper.put("/livraria/Pages/lumino/AlterarProduto", new VHCadastrarProduto());
+    	mapViewHelper.put("/livraria/Pages/lumino/InativaProduto", new VHCadastrarProduto());
+    	mapViewHelper.put("/livraria/Pages/lumino/CadastraCliente", new VHCliente());
+    	mapViewHelper.put("/livraria/Pages/lumino/ConsultaCliente", new VHCliente());
     	
     	mapCommand = new HashMap<String, ICommand>();
     	mapCommand.put("SALVAR", new CommandSalvar());

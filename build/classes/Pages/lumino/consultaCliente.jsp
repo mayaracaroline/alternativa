@@ -31,7 +31,8 @@
 								</div>
 								<div class="form-group">
 									<button type="reset" class="btn btn-default">Cancelar</button>
-									<button name="operacao" value="CONSULTAR" type="submit" class="btn btn-primary">Consultar</button>																
+									<button name="operacao" value="CONSULTAR" type="submit" class="btn btn-primary">Consultar</button>
+                                    																
 								</div>						
 									
 								</div>

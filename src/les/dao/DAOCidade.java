@@ -3,6 +3,7 @@ package les.dao;
 import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class DAOCidade extends AbstractDAO implements IDAO {
       } catch (Exception e) {
         resultado.erro("Erro ao realizar consulta de Cidades");
         e.printStackTrace();
-      }
+      } 
       
     } else {
       sql = "SELECT * FROM cidade WHERE cid_id = ?";
@@ -94,8 +95,7 @@ public class DAOCidade extends AbstractDAO implements IDAO {
       } catch (Exception e) {
         resultado.erro("Erro ao consultar cidade");
         e.printStackTrace();
-      }
-
+      } 
     }
     
     if (contagem == 1) {
