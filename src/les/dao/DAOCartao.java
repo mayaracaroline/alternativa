@@ -44,15 +44,7 @@ public class DAOCartao extends AbstractDAO implements IDAO {
     } catch (Exception e) {
       resultado.erro("Erro ao cadastrar cartão");
       e.printStackTrace();
-    } finally {      
-      try {
-        conexao.close();
-      } catch (SQLException e) {
-        // LOGGING
-        e.printStackTrace();
-      }
-    }   
-    
+    } 
     return resultado;
   }
 

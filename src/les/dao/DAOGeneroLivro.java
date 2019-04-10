@@ -58,14 +58,7 @@ public class DAOGeneroLivro extends AbstractDAO implements IDAO {
 			resultado.erro("Erro de consulta.");
 			
 			return resultado;
-		}  finally {      
-      try {
-        conexao.close();
-      } catch (SQLException e) {
-        // LOGGING
-        e.printStackTrace();
-      }
-    }
+		} 
 	}
 
 	public Resultado salvar(EntidadeDominio entidade) {

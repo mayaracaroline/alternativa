@@ -26,14 +26,14 @@ import viewhelper.VHCliente;
  * Servlet implementation class CadastrarProdutoController
  */
 @WebServlet({ 
-      "/livraria/Pages/lumino/CadastrarProduto", 
-      "/livraria/Pages/lumino/cadastro", 
-      "/livraria/Pages/lumino/ConsultaProduto", 
-      "/livraria/Pages/lumino/ExcluiProduto", 
-      "/livraria/Pages/lumino/AlterarProduto", 
-      "/livraria/Pages/lumino/InativaProduto",
-      "/livraria/Pages/lumino/Pages/lumino/CadastraCliente", 
-      "/livraria/Pages/lumino/ConsultaCliente"
+      "/Pages/lumino/CadastrarProduto", 
+      "/Pages/lumino/cadastro", 
+      "/Pages/lumino/ConsultaProduto", 
+      "/Pages/lumino/ExcluiProduto", 
+      "/Pages/lumino/AlterarProduto", 
+      "/Pages/lumino/InativaProduto",
+      "/Pages/lumino/CadastraCliente", 
+      "/Pages/lumino/ConsultaCliente"
     })
 
 public class CadastrarProdutoController extends HttpServlet {
@@ -72,10 +72,10 @@ public class CadastrarProdutoController extends HttpServlet {
 		String operacao = request.getParameter("operacao");
 		String vh = request.getRequestURI();
 		IViewHelper viewHelper = mapViewHelper.get(vh);
-		ICommand command = mapCommand.get(operacao);		
+		System.out.println(vh);
+		ICommand command = mapCommand.get(operacao);	
 		EntidadeDominio entidade = viewHelper.getEntidade(request);
 		Resultado resultado = command.executar(entidade);
-		
 		viewHelper.setView(resultado, request, response);
 		
 	}

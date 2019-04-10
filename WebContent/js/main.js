@@ -1,7 +1,6 @@
 /**
  * 
  */
-
 function toggleDisplayElement(target, className) {
   const element = document.querySelector("."+className);
   if(target.checked) {	  
@@ -19,4 +18,10 @@ function mascara(t, mask){
  if (texto.substring(0,1) != saida){
 	t.value += texto.substring(0,1);
  }
+}
+
+
+async function obterDados(url) {
+	const dados = await fetch(url, {method: 'get'})
+	return dados;
 }

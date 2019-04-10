@@ -23,8 +23,7 @@
 					<div class="panel-heading">Livros</div>
 					<div class="panel-body">
 						<div class="col-md-6">
-							<form role="form" action="/livraria/ConsultaProduto" method="POST">
-								
+							<form role="form" action="/livraria/ConsultaProduto" method="GET">								
 								<div class="form-group">
 									<label>Código:</label>
 									<input name="codigo" class="form-control" >									

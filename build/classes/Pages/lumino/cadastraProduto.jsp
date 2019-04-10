@@ -25,9 +25,7 @@
   	<div class="panel-heading">Livros</div>
   	<div class="panel-body">
       <div class="col-md-6">
-        <h1>${resultado.titulo}</h1>
-        <input value="${resultado.titulo}" id="d" name="titulo" class="form-control" >
-  		<form role="form" id="form" action="/livraria/CadastrarProduto" method="POST">
+  		<form role="form" id="form" action="/livraria/Pages/lumino/CadastrarProduto" method="POST">
 
   		  <div class="form-group">
             
@@ -139,35 +137,6 @@
       																
   		  </div> <!-- .form-group geral -->						  			 	 
         </form> 
-        
-       <label><b>Título:</b></label>
-       <span  id="sucesso"></span>
-       <label><b>Título:</b></label>
-
-       <script>
-
-          fetch('/livraria/ConsultaProduto?operacao=CONSULTAR&codigo=3', {
-            method: 'get', 
-            headers:{ // opcional
-            'Content-Type': 'application/json'
-            }
-          })
-            .then((response) => {
-            	
-              const text = response.text().then(res => {
-            	  console.log(res)
-              const html =  $.parseHTML(res);
-              const form = $(html).find('#form')
-              const formJSON = $(form).serializeArray();
-              const span = document.getElementById('sucesso').innerHTML = formJSON[1].value;
-              console.log(formJSON)
-             })
-           })                      
-          .catch(function(err){
-            console.error('Failed retrieving information', err);
-          });	
-       	
-       </script>
 
   
        </div><!-- /.col-->    		

@@ -23,7 +23,7 @@
 					<div class="panel-heading">Cliente</div>
 					<div class="panel-body">
 						<div class="col-md-6">
-							<form role="form" action="/livraria/ConsultaCliente" method="POST">
+							<form role="form" action="/livraria/Pages/lumino/ConsultaCliente">
 								
 								<div class="form-group">
 									<label>Código:</label>

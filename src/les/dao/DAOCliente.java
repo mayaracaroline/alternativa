@@ -160,13 +160,6 @@ public class DAOCliente extends AbstractDAO implements IDAO {
     } catch (Exception e) {
       resultado.erro("Erro ao consultar cliente");
       e.printStackTrace();
-    }finally {      
-      try {
-        conexao.close();
-      } catch (SQLException e) {
-        // LOGGING
-        e.printStackTrace();
-      }
     }
     
     return resultado;

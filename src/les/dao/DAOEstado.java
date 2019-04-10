@@ -76,14 +76,7 @@ public class DAOEstado extends AbstractDAO implements IDAO {
       } catch (Exception e) {
         resultado.erro("Erro ao realizar consulta");
         e.printStackTrace();
-      } finally {      
-        try {
-          conexao.close();
-        } catch (SQLException e) {
-          // LOGGING
-          e.printStackTrace();
-        }
-      }
+      } 
       
       
     }

@@ -7,6 +7,8 @@ public class Produto extends EntidadeDominio {
 	protected String justificativaAtivacao;
 	protected String justificativaInativacao;
 	protected boolean ativo;
+	protected String imagePath;
+	
 	
 	public String getCodigoBarras() {
 		return codigoBarras;

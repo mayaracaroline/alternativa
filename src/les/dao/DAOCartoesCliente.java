@@ -29,14 +29,7 @@ public class DAOCartoesCliente extends AbstractDAO implements IDAO {
       resultado.sucesso("Salvo com sucesso: cartoes_cliente");
     } catch (Exception e) {
       resultado.erro("Erro ao salvar: cartoes_cliente");
-    } finally {      
-      try {
-        conexao.close();
-      } catch (SQLException e) {
-        // LOGGING
-        e.printStackTrace();
-      }
-    }
+    } 
     return resultado;
   }
 

@@ -25,7 +25,7 @@
     	<div class="panel-heading">Livros</div>
     	<div class="panel-body">
     		<div class="col-md-6">
-    		  <form role="form" action="/livraria/InativaProduto" method="POST">
+    		  <form role="form" action="/livraria/Pages/lumino/InativaProduto" method="POST">
     			<div class="form-group">
     			 <label>Código:</label>
     		     <input name="codigo" class="form-control" >									

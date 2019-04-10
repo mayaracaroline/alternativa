@@ -24,7 +24,7 @@
 					<div class="panel-heading">Livros</div>
 					<div class="panel-body">
 						<div class="col-md-6">
-							<form role="form" action="/livraria/ExcluiProduto" method="POST">
+							<form role="form" action="/livraria//Pages/lumino/ExcluiProduto" method="POST">
 								
 								<div class="form-group">
 									<label>Código:</label>
