@@ -63,7 +63,7 @@ public class VHCadastrarProduto implements IViewHelper {
 		codigo = null != request.getParameter("codigo") && 
 				!"".equals(request.getParameter("codigo")) && 
 				Numero.isNumeric(request.getParameter("codigo")) ?	
-				Integer.parseInt(request.getParameter("codigo")) : 0;
+				Integer.parseInt(request.getParameter("codigo")) : -1;
 				
 		altura = null != request.getParameter("altura") && 
 				!"".equals(request.getParameter("altura")) &&
@@ -120,7 +120,8 @@ public class VHCadastrarProduto implements IViewHelper {
 		} else {			
 			for (String genero : generos ) {
 				GeneroLiterario generoLiterario = new GeneroLiterario();
-				generoLiterario.setId(Integer.parseInt(genero));
+				int idGenero = Numero.format(genero);
+				generoLiterario.setId(idGenero);
 				generosLiterarios.add(generoLiterario);
 			}
 		}
@@ -154,8 +155,14 @@ public class VHCadastrarProduto implements IViewHelper {
 	@Override
 	public void setView(Resultado resultado, HttpServletRequest request, HttpServletResponse response) {
 		String operacao = request.getParameter("operacao");
-		String mensagem[] = resultado.getMensagem().split("\n");
-		
+    String page = null != request.getParameter("page") ? request.getParameter("page") : "product" ;
+//    System.out.println(page);
+    int codigo = null != request.getParameter("codigo") && 
+        !"".equals(request.getParameter("codigo")) ?  
+            Integer.parseInt(request.getParameter("codigo")) : 0;
+//            System.out.println("codigo" + codigo);
+    String mensagem[] = resultado.getMensagem().split("\n");
+    
 		if(resultado.getErro())
 			request.setAttribute("erro", mensagem);
 		else
@@ -163,14 +170,14 @@ public class VHCadastrarProduto implements IViewHelper {
 		
 		if(operacao.equals("SALVAR")){
 			if(resultado.getErro()){
-				request.setAttribute("livro", (Livro) resultado.getListaResultado().get(0));
+				request.setAttribute("livro", resultado.getListaResultado().get(0));
 			}
 		} else if(operacao.equals("CONSULTAR")){
 			if(!resultado.getErro()){
 				if(resultado.getResultado() != null){
-					request.setAttribute("livro", (Livro) resultado.getResultado());
+					request.getSession().setAttribute("livro", (Livro) resultado.getResultado());
 				}else{
-					request.getSession().setAttribute("resultado", (Livro) resultado.getListaResultado().get(0));
+					request.getSession().setAttribute("resultado",  resultado.getListaResultado());
 				}
 			} else if(operacao.equals("EXCLUIR")){
 				if(resultado.getErro()){
@@ -189,18 +196,17 @@ public class VHCadastrarProduto implements IViewHelper {
 				rd.forward(request, response);
 			}
 			else if(operacao.equals("CONSULTAR")){
-				if(resultado.getResultado() != null){					
-//					RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/cadastraProduto.jsp");
-          RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
-					rd.forward(request, response);
-				} else if(resultado.getListaResultado() != null){
-//        RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/cadastraProduto.jsp");
-					RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
-					rd.forward(request, response);
-				} else {
-					RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
-					rd.forward(request, response);
-				}
+			  RequestDispatcher rd ;
+			  if(page.equals("product")) {
+			    rd = request.getRequestDispatcher("/Pages/lumino/produtos.jsp");
+			    if(codigo != 0) {
+            rd = request.getRequestDispatcher("/Pages/lumino/productDetails.jsp");
+            
+          }
+			  } else {
+          rd = request.getRequestDispatcher("/Pages/lumino/listaProduto.jsp");
+        }
+			  rd.forward(request, response);		
 			} else if(operacao.equals("EXCLUIR")){
 				request.setAttribute("livro", (Livro) resultado.getResultado());
 				RequestDispatcher rd = request.getRequestDispatcher("/Pages/lumino/produtoExcluido.jsp");

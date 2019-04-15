@@ -19,12 +19,12 @@
     <servlet-name>cadastraProduto</servlet-name>
     <url-pattern>/cadastraProduto</url-pattern>
   </servlet-mapping>
-     <servlet>
-  	<servlet-name>VHCadastroProduto</servlet-name>
-  	<servlet-class>controller.VHCadastrarProduto</servlet-class>
+  <servlet>
+    <servlet-name>VHCadastroProduto</servlet-name>
+    <servlet-class>controller.VHCadastrarProduto</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>VHCadastroProduto</servlet-name>
-  	<url-pattern>/cadastroProduto</url-pattern>
+    <servlet-name>VHCadastroProduto</servlet-name>
+    <url-pattern>/cadastroProduto</url-pattern>
   </servlet-mapping>
 </web-app>

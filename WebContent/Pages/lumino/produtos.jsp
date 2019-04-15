@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Livros | Alternativa</title>
+    <title>Produtos | Alternativa</title>
     <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
     <link href="<c:url value="/css/font-awesome.min.css" />" rel="stylesheet">
     <link href="<c:url value="/css/prettyPhoto.css" />" rel="stylesheet">
@@ -220,22 +220,36 @@
 				</div>
 				
 				<div class="col-sm-9 padding-right">
-					<form action="livraria/Pages/lumino/CadastraProduto" method="post"></form>
+					
+                    
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Produtos</h2>
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="images/shop/product12.jpg" alt="" />										
-										<h3>Farenheint 451</h3>
-										<h2>R$56,00</h2>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Visualizar</a>
-									</div>									
-								</div>
+						
+                        <c:forEach var="livro" items="${resultado}">
+                        <div class="col-sm-3">
+						<div class="product-image-wrapper">
+							<div class="single-products">
+								<form action="/livraria/Pages/lumino/ConsultaProduto">
+                                  <div class="productinfo text-center">
+                                    <input type="hidden" name="page" value="product"/>
+                                    <input type="hidden" name="codigo" value="${livro.id}"/>
+                                    <img src="images/shop/product12.jpg" alt="" />                    
+                                    <h6>${livro.titulo}</h6>
+                                    <h2>R$56,00</h2>
+                                    <button                                  
+                                       class="btn btn-default add-to-cart"
+                                       name="operacao"
+                                       value="CONSULTAR">
+                                       <i class="fa fa-shopping-cart"></i>Visualizar
+                                     </button>
+                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                  </div>
+                                </form>									
 							</div>
 						</div>
+                        </div>
+                        </c:forEach>
+						
 						<!-- <ul class="pagination">
 							<li class="active"><a href="">1</a></li>
 							<li><a href="">2</a></li>

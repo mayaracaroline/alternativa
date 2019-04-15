@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dominio.Carrinho;
 import dominio.EntidadeDominio;
 import les.command.CommandAlterar;
 import les.command.CommandConsultar;
@@ -46,7 +47,7 @@ public class CadastrarProdutoController extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public CadastrarProdutoController() {
-    	
+          	
     	mapViewHelper = new HashMap<String, IViewHelper>();
     	mapViewHelper.put("/livraria/Pages/lumino/CadastrarProduto", new VHCadastrarProduto());
     	mapViewHelper.put("/livraria/Pages/lumino/ConsultaProduto", new VHCadastrarProduto());
@@ -68,11 +69,12 @@ public class CadastrarProdutoController extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+    HashMap<String, Carrinho> mapProdutosBloqueados = new HashMap<>();     
+    getServletContext().setAttribute("bloqueio", mapProdutosBloqueados);
+
 		String operacao = request.getParameter("operacao");
 		String vh = request.getRequestURI();
 		IViewHelper viewHelper = mapViewHelper.get(vh);
-		System.out.println(vh);
 		ICommand command = mapCommand.get(operacao);	
 		EntidadeDominio entidade = viewHelper.getEntidade(request);
 		Resultado resultado = command.executar(entidade);

@@ -21,7 +21,9 @@ function mascara(t, mask){
 }
 
 
-async function obterDados(url) {
-	const dados = await fetch(url, {method: 'get'})
+async function obterDados(id) {
+	console.log('obterDados '+ id)
+	const dados = await fetch('/livraria/Pages/lumino/ConsultaProduto?page=product&operacao=CONSULTAR&codigo='+id, {method: 'get'})
+	console.log(dados)
 	return dados;
 }

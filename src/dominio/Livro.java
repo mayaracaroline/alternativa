@@ -1,11 +1,16 @@
 package dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Livro extends Produto {
+public class Livro extends Produto implements Serializable {
 	
-	private String autor;
+	/**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+  private String autor;
 	private int ano;
 	private String titulo;
 	private String edicao;

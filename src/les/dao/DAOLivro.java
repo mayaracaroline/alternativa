@@ -1,5 +1,6 @@
 package les.dao;
 
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,12 +93,21 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 		Resultado resultado = new Resultado();
 		Livro livro = (Livro) entidade;
 		List<EntidadeDominio> listLivro = new ArrayList<EntidadeDominio>();
-		String sql =  "SELECT * FROM LIVROS WHERE liv_id = ?";
+		String sql = null;
+		PreparedStatement statement;
+		
 		
 		try {
+		  
+      if(livro.getId().equals(BigInteger.ZERO)) {
+        sql = "SELECT * FROM LIVROS ;";
+        statement = conexao.prepareStatement(sql);
+      } else {
+        sql =  "SELECT * FROM LIVROS WHERE liv_id = ?";
+        statement = conexao.prepareStatement(sql);
+        statement.setInt(1, livro.getId().intValue());
+      }
 			
-			PreparedStatement statement = conexao.prepareStatement(sql);
-			statement.setInt(1, livro.getId().intValue());
 			ResultSet resultadoConsulta = statement.executeQuery();
 			int contagem = 0;
 			
@@ -133,14 +143,20 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 				livroEncontrado.setProfundidade(resultadoConsulta.getDouble("liv_profundidade"));
 				
 				contagem++;
-//				resultado.setResultado(livroEncontrado);
+				
 				listLivro.add(livroEncontrado);
 								
 			}
 								
 			statement.close();
 			resultado.setContagem(contagem);
-			resultado.setListaResultado(listLivro);
+			
+			if( contagem == 1) {
+        resultado.setResultado(listLivro.get(0)); 		  
+			} else {
+        resultado.setListaResultado(listLivro); 		  
+			}
+
 			resultado.sucesso("Sucesso");
 			return resultado;
 			
@@ -262,15 +278,7 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultado.erro("Erro ao inativar o registro");
-		} finally {      
-      try {
-        conexao.close();
-      } catch (SQLException e) {
-        // LOGGING
-        e.printStackTrace();
-      }
-    }
-		
+		} 		
 		
 		return resultado;
 	}

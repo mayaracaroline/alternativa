@@ -12,10 +12,9 @@ public class StValidarIdInserido implements IStrategy {
 		String mensagem = "";
 		Livro livro = (Livro) entidade;
 		
-		if(livro.getId().equals(BigInteger.ZERO)) {
+		if(livro.getId().intValue() == -1) {
 			mensagem = "Insira o código para consulta\n";			
-		}
-		
+		}		
 		return mensagem;
 	}
 

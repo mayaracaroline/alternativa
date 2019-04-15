@@ -13,7 +13,7 @@ public class StValidarDadosObrigatoriosLivro implements IStrategy {
 		
 		StringBuilder mensagem = new StringBuilder();
 		
-		if(livro.getId().equals(BigInteger.ZERO)){
+		if(livro.getId().intValue() == -1){
 			mensagem.append("Digite um código válido\n");
 		}
 		

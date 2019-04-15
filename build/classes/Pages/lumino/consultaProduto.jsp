@@ -23,7 +23,8 @@
 					<div class="panel-heading">Livros</div>
 					<div class="panel-body">
 						<div class="col-md-6">
-							<form role="form" action="/livraria/ConsultaProduto" method="GET">								
+							<form role="form" action="/livraria/Pages/lumino/ConsultaProduto" method="GET">
+                                <input type="hidden" value="products-adm" name="page">								
 								<div class="form-group">
 									<label>Código:</label>
 									<input name="codigo" class="form-control" >									

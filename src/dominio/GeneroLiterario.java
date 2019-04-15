@@ -1,10 +1,15 @@
 package dominio;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class GeneroLiterario extends EntidadeDominio {
+public class GeneroLiterario extends EntidadeDominio implements Serializable {
 
-	private String descricao;
+	/**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+  private String descricao;
 	public BigInteger getId() {
 		return id;
 	}
