@@ -65,7 +65,9 @@
 									<input name="quantidadePaginas" value="${item.quantidadePaginas}" class="form-control" disabled>
 									<label>Código de barras:</label>
 									<input name="codBarras" value="${item.codigoBarras}" class="form-control" disabled>
-									<div class="form-group checkbox">
+									<label>Preço:</label>
+                                    <input name="preco" value="${item.preco}" class="form-control" >  
+                                    <div class="form-group checkbox">
 										<label id="statusLivro" disabled>
 											<input id="status" name="ativo" type="checkbox">
 											

@@ -57,6 +57,10 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 			statement.setDouble(15,livro.getLargura());
 			statement.setDouble(16,livro.getPeso());
 			statement.setDouble(17,livro.getProfundidade());
+			
+      DAOProduto daoProduto = new DAOProduto();
+      daoProduto.salvar(livro);
+      
 			statement.execute();
 			
 			DAOGeneroLivro daoGenero = new DAOGeneroLivro();	
@@ -68,7 +72,6 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 			
 			resultado.setResultado(livro);
 			resultado.sucesso("Salvo com sucesso!");
-
 			
 			return resultado;
 			
@@ -76,15 +79,7 @@ public class DAOLivro extends AbstractDAO implements IDAO {
 			e.printStackTrace();
 			resultado.erro("Erro salvar, por favor, refaça a operação.");
 			return resultado;
-		} finally {      
-      try {
-        conexao.close();
-      } catch (SQLException e) {
-        // LOGGING
-        e.printStackTrace();
-      }
-    }
-	
+		}	
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dominio.Carrinho;
 import dominio.ItemCarrinho;
@@ -20,11 +21,11 @@ import viewhelper.VHCadastrarProduto;
 /**
  * Servlet implementation class CarrinhoController
  */
-@WebServlet("/Pages/lumino/carrinho")
+@WebServlet("/Pages/lumino/carrinhoBloqueio")
 public class CarrinhoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private 
- Carrinho carrinho;
+
+	private Carrinho carrinho;
 	
 	Carrinho getCarrinho() {
 	  
@@ -82,19 +83,20 @@ public class CarrinhoController extends HttpServlet {
         
     ItemCarrinho item = new ItemCarrinho();
     
-    item.setItem(produto);
+    item.setProduto(produto);
     item.setQuantidade(quantidade);
         
     getCarrinho().addItem(item);
     
     req.getSession().setAttribute("carrinho", getCarrinho());
-    this.carrinho = (Carrinho) req.getSession().getAttribute("carrinho");
-    
+    this.carrinho = (Carrinho) req.getSession().getAttribute("carrinho");  
     if(produtosBloqueados.containsValue(req.getSession().getId())) {
       produtosBloqueados.get(req.getSession().getId()).addItem(item);
     } else {
       produtosBloqueados.put(req.getSession().getId(), getCarrinho());
     }
+    
+
     
     System.out.println(produtosBloqueados.get(req.getSession().getId()).getItensCarrinho().size());
     RequestDispatcher rd = req.getRequestDispatcher("/Pages/lumino/productDetails.jsp");

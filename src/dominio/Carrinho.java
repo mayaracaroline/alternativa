@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Carrinho {
   
-  ArrayList<ItemCarrinho> itensCarrinho;
+  private ArrayList<ItemCarrinho> itensCarrinho;
 
   public ArrayList<ItemCarrinho> getItensCarrinho() {
     return itensCarrinho;
@@ -24,7 +24,7 @@ public class Carrinho {
     
     for (int i = 0; i < itens.size(); i++) {
       
-      if (itens.get(i).getItem().getId() ==  id) {
+      if (itens.get(i).getProduto().getId() ==  id) {
         itens.remove(i);
       }
     }

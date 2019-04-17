@@ -4,7 +4,7 @@ public class Numero {
 
 	public static boolean isNumeric (String number) {
 	    try {
-	        Double.parseDouble(number);
+	        Double.parseDouble(number.trim().replace(",", "."));
 	    } catch (NumberFormatException | NullPointerException nfe) {
 	        return false;
 	    }

@@ -5,20 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sound.midi.Soundbank;
-
+import dominio.Bloqueio;
 import dominio.Cliente;
 import dominio.EntidadeDominio;
 import dominio.Livro;
+import les.dao.DAOCarrinho;
 import les.dao.DAOCliente;
 import les.dao.DAOLivro;
 import les.dao.IDAO;
 import les.negocio.IStrategy;
 import les.negocio.StComplementarCidade;
 import les.negocio.StComplementarGeneroLiterario;
+import les.negocio.StConsultarQuantidadeEstoque;
 import les.negocio.StValidarDadosObrigatoriosCliente;
 import les.negocio.StValidarDadosObrigatoriosLivro;
-import les.negocio.StValidarEnderecosObrigatorios;
 import les.negocio.StValidarExistencia;
 import les.negocio.StValidarIdConsultaCliente;
 import les.negocio.StValidarIdInserido;
@@ -31,6 +31,7 @@ public class Fachada implements IFachada  {
 	
 	private Map<String, List<IStrategy>> rnsProduto;
 	private Map<String, List<IStrategy>> rnsCliente;
+	private Map<String, List<IStrategy>> rnsBloqueioProduto;
 	private Map<String, IDAO> mapDAO;
 	private Map<String, Map<String, List<IStrategy>>> rns;
 	
@@ -42,21 +43,26 @@ public class Fachada implements IFachada  {
 	
 	private List<IStrategy> listStrategySalvarCliente;
 	private List<IStrategy> listStrategyConsultarCliente;
+	private List<IStrategy> listStrategySalvarBloqueioProduto;
 	
 	public Fachada() {
 	  rns = new HashMap<String, Map<String, List<IStrategy>>>();
 		rnsProduto = new HashMap<String, List<IStrategy>>();
 		rnsCliente = new HashMap<String, List<IStrategy>>();
+		rnsBloqueioProduto = new HashMap<String, List<IStrategy>>();
+		
 		mapDAO = new HashMap<String, IDAO>();
 		
 		mapDAO.put("LIVRO", new DAOLivro());
 		mapDAO.put("CLIENTE", new DAOCliente());
+		mapDAO.put("BLOQUEIO", new DAOCarrinho());
 
 		listStrategySalvarProduto = new ArrayList<IStrategy>();
 		listStrategyConsultarProduto = new ArrayList<IStrategy>();
 		listStrategyExcluirProduto = new ArrayList<IStrategy>();
 		listStrategyAlterarProduto = new ArrayList<IStrategy>();
-		listStrategyInativarProduto = new ArrayList<IStrategy>(); 
+		listStrategyInativarProduto = new ArrayList<IStrategy>();
+    listStrategySalvarBloqueioProduto = new ArrayList<IStrategy>(); 
 		
 		listStrategySalvarProduto.add(new StValidarDadosObrigatoriosLivro());
 		listStrategySalvarProduto.add(new StValidarMotivoAtivacao());
@@ -76,6 +82,8 @@ public class Fachada implements IFachada  {
 		listStrategyInativarProduto.add(new StValidarLivroExclusaoEAlteracao());
 		listStrategyInativarProduto.add(new StValidarMotivoCategoriaInativacao());
 		
+		listStrategySalvarBloqueioProduto.add(new StConsultarQuantidadeEstoque());
+		
 		listStrategySalvarCliente = new ArrayList<IStrategy>();
 		listStrategySalvarCliente.add(new StComplementarCidade());
     listStrategySalvarCliente.add(new StValidarDadosObrigatoriosCliente());
@@ -90,11 +98,14 @@ public class Fachada implements IFachada  {
 		rnsProduto.put("ALTERAR", listStrategyAlterarProduto);
 		rnsProduto.put("INATIVAR", listStrategyInativarProduto);
 		
+		rnsBloqueioProduto.put("SALVAR", listStrategySalvarBloqueioProduto);
+		
 		rnsCliente.put("SALVAR", listStrategySalvarCliente);
 		rnsCliente.put("CONSULTAR", listStrategyConsultarCliente);
 		
     rns.put(Livro.class.getSimpleName().toUpperCase(), rnsProduto);
     rns.put(Cliente.class.getSimpleName().toUpperCase(), rnsCliente);
+    rns.put(Bloqueio.class.getSimpleName().toUpperCase(), rnsBloqueioProduto);
 				
 	}
 	

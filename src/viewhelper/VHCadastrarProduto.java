@@ -43,6 +43,7 @@ public class VHCadastrarProduto implements IViewHelper {
 		double largura;
 		double peso;
 		double profundidade;
+		double preco;
 		boolean ativo =  ativoStr == null ? false : true;
 		
 		categoriaAtivacao = null != request.getParameter("categoriaAtivacao") && 
@@ -88,18 +89,47 @@ public class VHCadastrarProduto implements IViewHelper {
 	    profundidade = null != request.getParameter("profundidade") && 
 	    		!"".equals(request.getParameter("profundidade")) &&
 	    		Numero.isNumeric(request.getParameter("profundidade")) ?	
-				Double.parseDouble(request.getParameter("profundidade").replace(",",".")) : 0;							
+				Double.parseDouble(request.getParameter("profundidade").replace(",",".")) : 0;
+			
+			preco = null != request.getParameter("preco") && 
+          !"".equals(request.getParameter("preco")) &&
+          Numero.isNumeric(request.getParameter("preco")) ?  
+        Double.parseDouble(request.getParameter("preco").replace(",",".")) : 0;
 		
+			
+			titulo = null != request.getParameter("titulo") && 
+          !"".equals(request.getParameter("titulo")) ?  
+          request.getParameter("titulo") : "";
+      autor = null != request.getParameter("autor") && 
+          !"".equals(request.getParameter("autor")) ?  
+          request.getParameter("autor") : "";
+      edicao = null != request.getParameter("edicao") && 
+         !"".equals(request.getParameter("edicao")) ?  
+         request.getParameter("edicao") : "";
+      editora = null != request.getParameter("editora") && 
+          !"".equals(request.getParameter("editora")) ?  
+              request.getParameter("editora") : "";
+      isbn = null != request.getParameter("isbn") && 
+          !"".equals(request.getParameter("isbn")) ?  
+              request.getParameter("isbn") : "";
+      sinopse = null != request.getParameter("sinopse") && 
+          !"".equals(request.getParameter("sinopse")) ?  
+              request.getParameter("sinopse") : "";
+      codigoBarras = null != request.getParameter("codBarras") && 
+          !"".equals(request.getParameter("codBarras")) ?  
+              request.getParameter("codBarras") : "";
+      motivoInativacao = null != request.getParameter("motivoInativacao") && 
+          !"".equals(request.getParameter("motivoInativacao")) ?  
+              request.getParameter("motivoInativacao") : "";
+      motivoAtivacao = null != request.getParameter("motivoAtivacao") && 
+          !"".equals(request.getParameter("motivoAtivacao")) ?  
+              request.getParameter("motivoAtivacao") : "";
+      
 		// Tratamento de String
 		
 		ArrayList<String> parameters = new ArrayList<String>();
 		
-		parameters.add(titulo);
-		parameters.add(autor);
-		parameters.add(edicao);
-		parameters.add(editora);
-		parameters.add(isbn);
-		parameters.add(sinopse);
+
 		parameters.add(codigoBarras);
 		parameters.add(motivoInativacao);
 		parameters.add(motivoAtivacao);
@@ -141,6 +171,7 @@ public class VHCadastrarProduto implements IViewHelper {
 		livro.setPeso(peso);
 		livro.setProfundidade(profundidade);
 		livro.setCodigoBarras(codigoBarras);
+		livro.setPreco(preco);
 		livro.setAtivo(ativo);
 		livro.setCategoriaAtivacao(categoriaAtivacao);
 		livro.setCategoriaInativacao(categoriaInativacao);
@@ -161,20 +192,21 @@ public class VHCadastrarProduto implements IViewHelper {
         !"".equals(request.getParameter("codigo")) ?  
             Integer.parseInt(request.getParameter("codigo")) : 0;
 //            System.out.println("codigo" + codigo);
-    String mensagem[] = resultado.getMensagem().split("\n");
+    String mensagem = resultado.getMensagem();
     
 		if(resultado.getErro())
-			request.setAttribute("erro", mensagem);
+			request.setAttribute("erro", (String) resultado.getMensagem());
 		else
 			request.setAttribute("sucesso", mensagem);
 		
 		if(operacao.equals("SALVAR")){
 			if(resultado.getErro()){
-				request.setAttribute("livro", resultado.getListaResultado().get(0));
+				request.setAttribute("livro", resultado.getResultado());
 			}
 		} else if(operacao.equals("CONSULTAR")){
 			if(!resultado.getErro()){
 				if(resultado.getResultado() != null){
+				  request.getSession().removeAttribute("errosBloqueio");
 					request.getSession().setAttribute("livro", (Livro) resultado.getResultado());
 				}else{
 					request.getSession().setAttribute("resultado",  resultado.getListaResultado());

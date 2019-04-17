@@ -48,7 +48,7 @@
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="../../area-do-cliente/lumino/meus-pedidos.html"><i class="fa fa-user"></i> Minha conta</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Meu carrinho</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Meu carrinho(${fn:length(sessionScope.carrinho.itensCarrinho)})</a></li>
 								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
@@ -200,6 +200,8 @@
 									<label>Quantidade:</label>
 									<input name="quantidade" type="text" value="1" />
 									<button
+                                      name="operacao"
+                                      value="SALVAR"
                                       type="submit" 
                                       class="btn btn-fefault cart"
                                     >
@@ -210,12 +212,17 @@
 								<p><b>Disponibilidade:</b> Em estoque</p>
 								<p><b>Condição:</b> Novo</p>
 								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
-							 </div><!--/product-information-->
+							 </div><!--/product-information-->                              
 						  </div>
 					 </div><!--/product-details-->
 							
-							<div class="tab-pane fade active in" id="reviews" >
+							<div class="tab-pane fade active in" id="reviews" >              
 								<div class="col-sm-12">
+        							<c:forEach var="mensagem" items="${sessionScope.errosBloqueio}">
+        								<div class="alert alert-danger" role="alert">
+        									${mensagem}
+        								</div>											
+        							</c:forEach>
 									<ul>
 										<li><a href=""><i class="fa fa-user"></i>Sinopse</a></li>
 									</ul>

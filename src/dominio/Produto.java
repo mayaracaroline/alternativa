@@ -6,6 +6,7 @@ public class Produto extends EntidadeDominio {
 	protected int categoriaInativacao;
 	protected String justificativaAtivacao;
 	protected String justificativaInativacao;
+	protected Double preco;
 	protected boolean ativo;
 	protected String imagePath;
 	
@@ -46,5 +47,17 @@ public class Produto extends EntidadeDominio {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+  public Double getPreco() {
+    return preco;
+  }
+  public void setPreco(Double preco) {
+    this.preco = preco;
+  }
+  public String getImagePath() {
+    return imagePath;
+  }
+  public void setImagePath(String imagePath) {
+    this.imagePath = imagePath;
+  }	
 		
 }

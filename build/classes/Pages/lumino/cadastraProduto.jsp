@@ -113,6 +113,8 @@
 			<input name="quantidadePaginas" class="form-control" >
 			<label>Código de barras:</label>
 			<input name="codBarras" class="form-control" >
+            <label>Preço:</label>
+            <input name="preco" class="form-control" >      
 			<div class="form-group checkbox">
 			 <label>
 			   <input name="ativo" type="checkbox">Ativo
