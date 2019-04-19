@@ -18,17 +18,4 @@ public class Carrinho {
   public void addItem(ItemCarrinho item) {
     this.getItensCarrinho().add(item);    
   }
-  
-  public void removeItem(BigInteger id) {
-    ArrayList<ItemCarrinho> itens = this.getItensCarrinho();
-    
-    for (int i = 0; i < itens.size(); i++) {
-      
-      if (itens.get(i).getProduto().getId() ==  id) {
-        itens.remove(i);
-      }
-    }
-    
-  }
-
 }

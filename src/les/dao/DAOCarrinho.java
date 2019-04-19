@@ -1,6 +1,8 @@
 package les.dao;
 
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -69,8 +71,40 @@ public class DAOCarrinho extends AbstractDAO implements IDAO {
 
   @Override
   public Resultado excluir(EntidadeDominio entidade) {
-    // TODO Auto-generated method stub
-    return null;
+    Resultado resultado = new Resultado();
+    Bloqueio bloqueio = (Bloqueio) entidade;
+    ArrayList<ItemCarrinho> itensCarrinho = bloqueio.getCarrinho().getItensCarrinho();
+    // Para guardar quantidade de itens a serem devolvidos para o estoque
+    Integer quantidadeDevolucao = 0;
+    // Index do último produto adicionado
+    Integer indexProdutoAdicionado = itensCarrinho.size() - 1;
+    BigInteger idProduto = itensCarrinho.get(indexProdutoAdicionado).getProduto().getId();
+    
+    for (int i =0; i< itensCarrinho.size(); i++) {
+       ItemCarrinho item = itensCarrinho.get(i);
+      
+       if(item.getProduto().getId().equals(idProduto)) {
+        quantidadeDevolucao += item.getQuantidade();
+        itensCarrinho.remove(i);        
+      }      
+    }
+    
+    String sql = "UPDATE estoque SET est_quantidade = est_quantidade + ? WHERE est_pro_id = ?";
+    
+    try {
+      PreparedStatement pst = conexao.prepareStatement(sql);
+      pst.setInt(1, quantidadeDevolucao);
+      pst.setInt(2, idProduto.intValue());
+      
+      pst.executeUpdate();
+      
+      
+    } catch (Exception e) {
+      // TODO: handle exception
+    }
+    
+    
+    return resultado;
   }
 
   @Override

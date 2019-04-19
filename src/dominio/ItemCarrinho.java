@@ -1,5 +1,8 @@
 package dominio;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+
 public class ItemCarrinho {
   
   private Produto produto;
@@ -17,6 +20,12 @@ public class ItemCarrinho {
   }
   public void setProduto(Produto produto) {
     this.produto = produto;
+  }
+  
+  public void removeProduto() {
+    if(this.quantidade > 0 ) {
+      this.quantidade -= 1;
+    }   
   }
   
 }

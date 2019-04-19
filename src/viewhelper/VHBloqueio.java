@@ -1,5 +1,6 @@
 package viewhelper;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ import dominio.Carrinho;
 import dominio.EntidadeDominio;
 import dominio.ItemCarrinho;
 import dominio.Livro;
+import dominio.Produto;
 import util.Numero;
 import util.Resultado;
 
@@ -21,7 +23,7 @@ public class VHBloqueio implements IViewHelper {
   
   @Override
   public EntidadeDominio getEntidade(HttpServletRequest request) {
-
+    System.out.println("Passei na VHloqueio");
     if (null == carrinho ) {
       
       Carrinho carrinho = new Carrinho();
@@ -44,15 +46,46 @@ public class VHBloqueio implements IViewHelper {
     
     Livro  produto = (Livro) vh.getEntidade(request);
     int quantidade = Numero.format(request.getParameter("quantidade"));
-        
-    ItemCarrinho item = new ItemCarrinho();
     
-    item.setProduto(produto);
-    item.setQuantidade(quantidade);
-        
-    this.carrinho.addItem(item);
-
-    produto = (Livro) vh.getEntidade(request);
+    BigInteger idProduto = produto.getId();
+    System.out.println(idProduto);
+    boolean contemProduto = false;
+    for ( int i = 0; i < this.carrinho.getItensCarrinho().size(); i++) {
+      Produto prod = this.carrinho.getItensCarrinho().get(i).getProduto();
+      System.out.println("for " + prod.getId());
+      if(prod.getId().equals(idProduto)) {
+//        int quantidadeProdutosCarrinho = this.carrinho.getItensCarrinho().get(i).getQuantidade();
+//        
+//        if(quantidadeProdutosCarrinho >= quantidade) {
+//          int quantidadeAserExcluida = quantidadeProdutosCarrinho - quantidade;
+//          carrinho.getItensCarrinho().get(i)
+//          .setQuantidade(quantidadeProdutosCarrinho 
+//              - quantidadeAserExcluida);
+//        } else {
+//          int quantidadeAserAdicionada = quantidade - quantidadeProdutosCarrinho;
+//          carrinho.getItensCarrinho().get(i)
+//          .setQuantidade(quantidadeProdutosCarrinho 
+//              + quantidadeAserAdicionada);
+//        }
+       // this.carrinho.getItensCarrinho().get(i).setQuantidade(quantidadeProdutosCarrinho + 1);
+        ItemCarrinho item = this.carrinho.getItensCarrinho().get(i);
+        this.carrinho.getItensCarrinho().add(item);
+        this.carrinho.getItensCarrinho().remove(i);
+        System.out.println("Id igual");
+        contemProduto = true;
+        break;
+      }    
+    }
+    
+    if (!contemProduto) {
+      System.out.println("Não conte");
+      ItemCarrinho item = new ItemCarrinho();
+      
+      item.setProduto(produto);
+      item.setQuantidade(quantidade);
+          
+      this.carrinho.addItem(item);     
+    }
     
     HttpSession sessaoUsuario = request.getSession();
    

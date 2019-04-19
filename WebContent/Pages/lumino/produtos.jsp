@@ -45,7 +45,7 @@
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="../../area-do-cliente/lumino/meus-pedidos.html"><i class="fa fa-user"></i> Minha conta</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Meu carrinho</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Meu carrinho(${fn:length(sessionScope.carrinho.itensCarrinho)})</a></li>
 								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
